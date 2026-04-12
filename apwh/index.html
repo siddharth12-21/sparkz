@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>AP World History Modern — Interactive Atlas &amp; Timeline</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAV ===== -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h1 class="logo">APWH<span>Modern</span></h1>
+      <p class="tagline">1200 CE – Present</p>
+    </div>
+
+    <div class="unit-list" id="unitList">
+      <!-- units injected by JS -->
+    </div>
+
+    <div class="sidebar-footer">
+      <button id="btnToggleTheme" class="btn-icon" title="Toggle dark/light mode">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main">
+
+    <!-- TOP BAR -->
+    <header id="topBar">
+      <button id="btnMenu" class="btn-icon" title="Toggle sidebar">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="top-bar-title">
+        <h2 id="currentUnitTitle">Welcome</h2>
+        <span id="currentPeriod" class="period-badge"></span>
+      </div>
+      <div class="view-toggles">
+        <button class="view-btn active" data-view="map" title="Map view">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <span>Map</span>
+        </button>
+        <button class="view-btn" data-view="timeline" title="Timeline view">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2"/></svg>
+          <span>Timeline</span>
+        </button>
+        <button class="view-btn" data-view="study" title="Study cards">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>Study</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAP VIEW -->
+    <section id="mapView" class="view-panel active">
+
+      <!-- Split viewport: compare pane (left) + live pane (right) -->
+      <div id="mapViewport">
+        <div id="comparePane" class="map-pane map-pane--compare hidden">
+          <div class="map-pane-label" id="comparePaneLabel">— CE</div>
+          <div id="map-compare"></div>
+        </div>
+        <div class="map-pane-divider hidden" id="mapDivider"></div>
+        <div id="livePane" class="map-pane map-pane--live">
+          <div class="map-pane-label hidden" id="livePaneLabel">Live</div>
+          <div id="map"></div>
+        </div>
+      </div>
+
+      <!-- Overlays positioned relative to #mapView -->
+      <div id="mapLegend" class="map-legend">
+        <h4>Legend</h4>
+        <div id="legendItems"></div>
+      </div>
+      <div id="mapInfo" class="map-info-panel hidden">
+        <button id="closeMapInfo" class="btn-close">&times;</button>
+        <h3 id="mapInfoTitle"></h3>
+        <p id="mapInfoDesc"></p>
+        <div id="mapInfoDetails"></div>
+      </div>
+
+      <!-- Global Living History Timeline Bar (context card lives inside) -->
+      <div id="globalBar" class="global-bar hidden">
+        <div class="gb-controls">
+          <button id="globalPlayBtn" class="gb-btn" title="Play / Pause">&#9654;</button>
+          <div class="gb-year-wrap">
+            <span id="globalYearDisplay" class="gb-year">1200</span>
+            <span class="gb-ce">CE</span>
+          </div>
+          <div class="gb-slider-wrap">
+            <input id="globalSlider" type="range" class="gb-slider"
+                   min="1200" max="1450" value="1200" step="1">
+            <div class="gb-ticks" aria-hidden="true" id="gbTicks"></div>
+          </div>
+          <button id="globalSpeedBtn" class="gb-btn gb-speed" title="Playback speed">1x</button>
+          <button id="compareBtn" class="gb-btn gb-compare" title="Side-by-side comparison: lock current year on the left, scrub the right">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18"/><rect x="13" y="3" width="8" height="18"/></svg>
+            Compare
+          </button>
+        </div>
+        <div id="globalEventLabel" class="gb-event"></div>
+        <!-- Inline context row (replaces floating card — no more overlap) -->
+        <div id="gbContextRow" class="gb-context-row hidden">
+          <span id="ctxYear" class="gb-ctx-year"></span>
+          <div class="gb-ctx-items">
+            <div class="gb-ctx-item">
+              <span class="gb-ctx-label">Dominant</span>
+              <span id="ctxDominant" class="gb-ctx-value"></span>
+            </div>
+            <div class="gb-ctx-sep" aria-hidden="true"></div>
+            <div class="gb-ctx-item">
+              <span class="gb-ctx-label">Key Trade</span>
+              <span id="ctxTrade" class="gb-ctx-value"></span>
+            </div>
+            <div class="gb-ctx-sep" aria-hidden="true"></div>
+            <div class="gb-ctx-item">
+              <span class="gb-ctx-label">Conflict</span>
+              <span id="ctxConflict" class="gb-ctx-value"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE VIEW -->
+    <section id="timelineView" class="view-panel">
+      <div class="timeline-container">
+        <div class="timeline-era-bar" id="eraBar"></div>
+        <div class="timeline-track" id="timelineTrack"></div>
+      </div>
+    </section>
+
+    <!-- STUDY VIEW -->
+    <section id="studyView" class="view-panel">
+      <div class="study-container" id="studyContainer">
+        <div class="study-header">
+          <h3 id="studyTitle"></h3>
+          <div class="study-progress">
+            <span id="studyProgress">0 / 0</span>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          </div>
+        </div>
+        <div class="flashcard-area" id="flashcardArea">
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner" id="flashcardInner">
+              <div class="flashcard-front" id="flashcardFront"></div>
+              <div class="flashcard-back" id="flashcardBack"></div>
+            </div>
+          </div>
+          <p class="flashcard-hint">Click or press Space to flip</p>
+        </div>
+        <div class="study-nav">
+          <button id="prevCard" class="btn-study">← Previous</button>
+          <button id="nextCard" class="btn-study">Next →</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- WELCOME MODAL -->
+  <div id="welcomeOverlay" class="modal-overlay">
+    <div class="modal welcome-modal">
+      <h2>AP World History: Modern</h2>
+      <p>Explore <strong>9 units</strong> of world history from <strong>1200 CE to the present</strong> through interactive maps, timelines, and study cards.</p>
+      <div class="welcome-features">
+        <div class="feature">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <h4>Interactive Maps</h4>
+          <p>Explore empires, trade routes, and territorial changes</p>
+        </div>
+        <div class="feature">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="18" r="2.5"/></svg>
+          <h4>Timelines</h4>
+          <p>Navigate key events chronologically by unit</p>
+        </div>
+        <div class="feature">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <h4>Study Cards</h4>
+          <p>Review key concepts with flashcards for each unit</p>
+        </div>
+      </div>
+      <button id="btnGetStarted" class="btn-primary">Get Started</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="data_units_1_3.js?v=17"></script>
+  <script src="data_units_4_6.js?v=17"></script>
+  <script src="data_units_7_9.js?v=17"></script>
+  <script src="data.js?v=17"></script>
+  <script src="app.js?v=18"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /serve_studyhub.py
+
+Sitemap: https://sparkz.quest/sitemap.xml

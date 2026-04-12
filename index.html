@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- ═══ Primary SEO ═══ -->
+<title>Sparkz — Free Interactive Math &amp; AP World History Learning</title>
+<meta name="description" content="Master Math and AP World History for free. Graphing calculator, Riemann sums, conics, unit circle, plus interactive empire maps, animated trade routes, living history timeline, and flashcards — all in one place.">
+<meta name="keywords" content="AP World History, APWH study, interactive map, empire simulation, graphing calculator, Riemann sum, precalculus, unit circle, conic sections, free study tool, history flashcards, Silk Road map">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Sparkz">
+<link rel="canonical" href="https://sparkz.quest/">
+
+<!-- ═══ Favicon (emoji SVG — works in all modern browsers) ═══ -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="apple-touch-icon" href="og-image.png">
+
+<!-- ═══ Open Graph (Facebook / Discord / Slack / LinkedIn previews) ═══ -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://sparkz.quest/">
+<meta property="og:site_name"   content="Sparkz">
+<meta property="og:title"       content="Sparkz — Free Interactive Math &amp; AP World History">
+<meta property="og:description" content="Graphing calculator, Riemann sums, conics, living history maps, empire simulations, trade routes, flashcards — all free and interactive.">
+<meta property="og:image"       content="https://sparkz.quest/og-image.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"   content="Sparkz — Math and AP World History interactive learning platform">
+<meta property="og:locale"      content="en_US">
+
+<!-- ═══ Twitter / X Card ═══ -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Sparkz — Free Interactive Math &amp; AP World History">
+<meta name="twitter:description" content="Graphing calculator, Riemann sums, living history maps, empire simulations, flashcards — all free.">
+<meta name="twitter:image"       content="https://sparkz.quest/og-image.png">
+<meta name="twitter:image:alt"   content="Sparkz learning platform preview">
+
+<!-- ═══ JSON-LD Structured Data ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Sparkz",
+  "url": "https://sparkz.quest/",
+  "description": "Free interactive learning platform for Math and AP World History. Features a graphing calculator, Riemann sums, conic sections, unit circle, empire maps with animated simulations, and flashcards.",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Graphing Calculator",
+    "Riemann Sums",
+    "Conic Sections",
+    "Unit Circle",
+    "AP World History Interactive Maps",
+    "Empire Simulation Timeline",
+    "Animated Trade Routes",
+    "Flashcards"
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true
+}
+</script>
+
+<meta name="theme-color" content="#0c0a1a">
+<script>
+  window.STUDYHUB_BUILD = "2026-04-05-7";
+  // ↓ Set to your Railway backend URL after deploying (keep trailing slash off)
+  // Example: window.BACKEND_URL = "https://sparkz-backend.up.railway.app";
+  window.BACKEND_URL = "";  // empty = use localhost:3001 in dev
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & base ── */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c0a1a;--surface:#161228;--text:#eee8f5;--text-dim:#8b83a0;
+  --accent:#a78bfa;--accent2:#60a5fa;--accent-glow:rgba(167,139,250,0.28);
+  --border:rgba(255,255,255,0.08);--nav-h:52px;
+}
+html.light{
+  --bg:#f0f2f8;--surface:#ffffff;--text:#12112b;--text-dim:#5a5880;
+  --accent:#6d28d9;--accent2:#1d4ed8;--accent-glow:rgba(109,40,217,0.14);
+  --border:rgba(0,0,0,0.09);
+}
+html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);overflow:hidden}
+
+/* ══════════════════════════════════════════
+   SPLASH SCREEN
+══════════════════════════════════════════ */
+#splash{
+  position:fixed;inset:0;z-index:9000;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0;
+  transition:opacity .55s ease, transform .55s ease;
+}
+#splash.hide{opacity:0;transform:translateY(-18px);pointer-events:none}
+
+/* animated starfield canvas sits behind everything in the splash */
+#splash-canvas{
+  position:absolute;inset:0;pointer-events:none;
+}
+
+.splash-inner{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  gap:1.6rem;padding:0 1rem;text-align:center;
+  max-width:620px;
+}
+
+.splash-logo{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  font-size:clamp(2.4rem,7vw,4rem);font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:linear-gradient(120deg,var(--accent),var(--accent2),var(--accent));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer{to{background-position:200% center}}
+
+.splash-logo span{
+  font-weight:500;opacity:.7;
+  background:linear-gradient(120deg,var(--text-dim),var(--text),var(--text-dim));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+
+.splash-tagline{
+  font-size:clamp(.9rem,2.4vw,1.15rem);color:var(--text-dim);
+  font-weight:500;letter-spacing:.04em;line-height:1.65;
+}
+.splash-tagline strong{color:var(--text);font-weight:600}
+
+.splash-pills{
+  display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center;
+}
+.splash-pill{
+  padding:.42rem 1rem;border-radius:999px;font-size:.75rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);
+  color:var(--text-dim);background:var(--surface);
+}
+
+.splash-enter{
+  margin-top:.4rem;
+  padding:.85rem 2.4rem;border-radius:14px;border:none;cursor:pointer;
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  font-size:.82rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;box-shadow:0 0 28px var(--accent-glow);
+  transition:transform .18s,box-shadow .18s,opacity .18s;
+  position:relative;overflow:hidden;
+}
+.splash-enter::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .18s;
+}
+.splash-enter:hover{transform:translateY(-2px);box-shadow:0 0 44px var(--accent-glow)}
+.splash-enter:hover::after{opacity:1}
+.splash-enter:active{transform:translateY(0)}
+
+.splash-hint{
+  font-size:.7rem;color:var(--text-dim);opacity:.6;letter-spacing:.06em;
+}
+
+/* Visitor counter badge */
+.splash-visitors{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.38rem 1rem;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface);
+  font-size:.72rem;font-weight:600;color:var(--text-dim);
+  letter-spacing:.02em;
+  opacity:0;transition:opacity .5s ease;
+}
+.splash-visitors.visible{opacity:1}
+.splash-visitors svg{flex-shrink:0;opacity:.7}
+.splash-visitors strong{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* Theme toggle on splash (top-right corner) — hidden once app opens */
+#splashTheme{
+  position:fixed;top:16px;right:16px;z-index:9100;
+  width:38px;height:38px;border-radius:10px;
+  border:1px solid var(--border);background:var(--surface);
+  color:var(--text-dim);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+#splashTheme:hover{color:var(--text);background:var(--accent-glow);border-color:var(--accent)}
+#splashTheme svg{width:17px;height:17px}
+
+/* divider line with cards */
+.splash-modules{
+  display:flex;gap:1rem;margin-top:.5rem;width:100%;
+  justify-content:center;
+}
+.splash-card{
+  flex:1;max-width:220px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.1rem 1.2rem;
+  text-align:left;transition:border-color .2s;
+}
+.splash-card:hover{border-color:var(--accent)}
+.splash-card-icon{font-size:1.5rem;margin-bottom:.5rem}
+.splash-card-title{font-size:.82rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--text);margin-bottom:.3rem}
+.splash-card-desc{font-size:.74rem;color:var(--text-dim);line-height:1.55}
+
+/* ══════════════════════════════════════════
+   MAIN APP (nav + iframes)
+══════════════════════════════════════════ */
+#app{opacity:0;transition:opacity .4s ease .1s;pointer-events:none}
+#app.ready{opacity:1;pointer-events:all}
+
+/* ── Top Nav ── */
+.top-nav{
+  height:var(--nav-h);display:flex;align-items:center;padding:0 1.25rem;gap:.5rem;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  position:relative;z-index:100;
+  box-shadow:0 1px 12px rgba(0,0,0,0.15);
+}
+.logo{
+  font-family:'Space Grotesk','Outfit',system-ui,sans-serif;
+  font-weight:700;font-size:1.05rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;
+  margin-right:.75rem;user-select:none;cursor:pointer;
+}
+.logo:hover{opacity:.82}
+.logo span{color:var(--text);font-weight:600;opacity:.72;letter-spacing:.08em}
+
+.nav-tabs{display:flex;gap:6px;flex:1}
+.nav-tab{
+  font-family:'Space Grotesk','Outfit',system-ui,sans-serif;
+  position:relative;padding:.55rem 1.15rem;font-size:.72rem;font-weight:600;
+  background:none;border:none;color:var(--text-dim);cursor:pointer;
+  border-radius:10px;transition:all .22s ease;letter-spacing:.14em;text-transform:uppercase;
+}
+.nav-tab:hover{color:var(--text);background:var(--accent-glow)}
+.nav-tab.active{color:var(--accent)}
+.nav-tab.active::after{
+  content:'';position:absolute;bottom:-1px;left:18%;right:18%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);border-radius:2px;
+}
+.nav-tab .tab-icon{margin-right:.45rem;font-size:.95rem;vertical-align:-2px;opacity:.9}
+
+.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+.theme-toggle{
+  width:36px;height:36px;border-radius:10px;border:1px solid var(--border);
+  background:none;color:var(--text-dim);cursor:pointer;display:flex;
+  align-items:center;justify-content:center;transition:all .2s;
+}
+.theme-toggle:hover{color:var(--text);background:var(--accent-glow);border-color:var(--accent)}
+.theme-toggle svg{width:18px;height:18px}
+
+/* ── Content area ── */
+.content{height:calc(100vh - var(--nav-h));position:relative}
+.tab-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none}
+.tab-frame.active{display:block}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .logo span{display:none}
+  .nav-tab{padding:.45rem .75rem;font-size:.75rem}
+  .splash-modules{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Splash theme toggle (always visible over splash) -->
+<button id="splashTheme" onclick="toggleTheme()" title="Toggle light/dark mode">
+  <svg id="splashSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg id="splashMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+</button>
+
+<!-- ═══════════ SPLASH ═══════════ -->
+<div id="splash">
+  <canvas id="splash-canvas"></canvas>
+  <div class="splash-inner">
+    <div class="splash-logo">Sparkz<span>.quest</span></div>
+    <p class="splash-tagline">
+      Your all-in-one interactive learning platform.<br>
+      <strong>Advanced math tools</strong> and <strong>AP World History</strong> — together.
+    </p>
+
+    <div class="splash-modules">
+      <div class="splash-card">
+        <div class="splash-card-icon">&#8721;</div>
+        <div class="splash-card-title">Math Playground</div>
+        <div class="splash-card-desc">Graphing calculator, Riemann sums, conics, unit circle, vectors, and more — all interactive.</div>
+      </div>
+      <div class="splash-card">
+        <div class="splash-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align:-4px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="splash-card-title">AP World History</div>
+        <div class="splash-card-desc">Interactive maps, empire simulations, animated trade routes, timelines, and flashcards.</div>
+      </div>
+    </div>
+
+    <button class="splash-enter" id="splashEnter">Enter Sparkz &rarr;</button>
+    <div class="splash-hint">Press <kbd style="background:var(--border);padding:1px 5px;border-radius:4px">Enter</kbd> to continue</div>
+
+    <div class="splash-visitors" id="visitorBadge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <span><strong id="visitorCount"></strong> <span id="visitorLabel">visitors</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app">
+  <div id="fileProtocolWarn" style="display:none;background:#7c2d12;color:#fff;padding:10px 16px;font-size:13px;text-align:center">
+    Sparkz must run over HTTP. Run: <code style="background:rgba(0,0,0,.2);padding:2px 8px;border-radius:4px">python3 serve_studyhub.py</code> then open <strong>http://localhost:8765/</strong>
+  </div>
+
+  <nav class="top-nav">
+    <div class="logo" onclick="showSplash()" title="Back to home">Sparkz<span>.quest</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="math" onclick="switchTab('math')">
+        <span class="tab-icon" aria-hidden="true">&#8721;</span>Math Playground
+      </button>
+      <button class="nav-tab" data-tab="apwh" onclick="switchTab('apwh')">
+        <span class="tab-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>AP World History
+      </button>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" id="themeBtn">
+        <svg id="themeSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="themeMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <iframe class="tab-frame active" id="frame-math" title="Math Playground" src="about:blank"></iframe>
+    <iframe class="tab-frame" id="frame-apwh" title="AP World History" src="about:blank"></iframe>
+  </div>
+</div>
+
+<script>
+/* ── State ── */
+var currentTab = 'math';
+var theme = localStorage.getItem('sparkz-theme') || localStorage.getItem('studyhub-theme') || 'dark';
+var splashDismissed = false;
+
+/* ── Starfield canvas ── */
+(function(){
+  var c = document.getElementById('splash-canvas');
+  var ctx = c.getContext('2d');
+  var stars = [];
+  function resize(){ c.width=innerWidth; c.height=innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for(var i=0;i<160;i++){
+    stars.push({
+      x:Math.random()*innerWidth, y:Math.random()*innerHeight,
+      r:Math.random()*1.1+.2, o:Math.random()*.7+.15,
+      s:(Math.random()-.5)*.012
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    var col = window._starColor || '200,190,255';
+    stars.forEach(function(s){
+      s.o += s.s;
+      if(s.o>0.85||s.o<0.1) s.s*=-1;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+col+','+s.o+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Splash logic ── */
+function enterApp(targetTab){
+  var splash = document.getElementById('splash');
+  var app    = document.getElementById('app');
+  var st     = document.getElementById('splashTheme');
+  splash.classList.add('hide');
+  app.classList.add('ready');
+  if(st) st.style.display = 'none';
+  splashDismissed = true;
+  if(targetTab) switchTab(targetTab);
+  setTimeout(function(){ splash.style.display='none'; }, 600);
+}
+
+function showSplash(){
+  var splash = document.getElementById('splash');
+  var app    = document.getElementById('app');
+  var st     = document.getElementById('splashTheme');
+  splash.style.display='flex';
+  splash.offsetHeight;
+  splash.classList.remove('hide');
+  app.classList.remove('ready');
+  if(st) st.style.display = 'flex';
+  splashDismissed = false;
+}
+
+document.getElementById('splashEnter').addEventListener('click', function(){ enterApp(); });
+
+// Click the module cards to go directly to that tab
+document.querySelectorAll('.splash-card').forEach(function(card, i){
+  card.style.cursor='pointer';
+  card.addEventListener('click', function(){ enterApp(i===0?'math':'apwh'); });
+});
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && !splashDismissed) enterApp();
+});
+
+/* ── Iframe helpers ── */
+function iframeSrc(path){
+  var b = (typeof window.STUDYHUB_BUILD!=='undefined') ? window.STUDYHUB_BUILD : '1';
+  return path + '?b=' + encodeURIComponent(b);
+}
+
+function loadIframes(){
+  var m = document.getElementById('frame-math');
+  var a = document.getElementById('frame-apwh');
+  if(m.getAttribute('src')==='about:blank') m.src = iframeSrc('math.html');
+  if(a.getAttribute('src')==='about:blank') a.src = iframeSrc('apwh/index.html');
+}
+
+function switchTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(function(b){
+    b.classList.toggle('active', b.dataset.tab===tab);
+  });
+  document.querySelectorAll('.tab-frame').forEach(function(f){
+    f.classList.toggle('active', f.id==='frame-'+tab);
+  });
+  setTimeout(function(){
+    try{ document.getElementById('frame-apwh').contentWindow.postMessage({type:'invalidate-map'},'*'); }catch(e){}
+    try{ document.getElementById('frame-math').contentWindow.postMessage({type:'studyhub-resize'},'*'); }catch(e){}
+  }, 100);
+}
+
+/* ── Theme ── */
+function applyTheme(){
+  var isLight = theme === 'light';
+  document.documentElement.classList.toggle('light', isLight);
+  // Nav toggle icons
+  document.getElementById('themeSun').style.display  = isLight ? 'block' : 'none';
+  document.getElementById('themeMoon').style.display = isLight ? 'none'  : 'block';
+  // Splash toggle icons
+  var ss = document.getElementById('splashSun');
+  var sm = document.getElementById('splashMoon');
+  if(ss) ss.style.display = isLight ? 'block' : 'none';
+  if(sm) sm.style.display = isLight ? 'none'  : 'block';
+  // Starfield color: purple-tinted in dark, blue-tinted in light
+  window._starColor = isLight ? '80,90,160' : '200,190,255';
+  var msg = {type:'set-theme', theme:theme};
+  try{ document.getElementById('frame-math').contentWindow.postMessage(msg,'*'); }catch(e){}
+  try{ document.getElementById('frame-apwh').contentWindow.postMessage(msg,'*'); }catch(e){}
+}
+
+function toggleTheme(){
+  theme = theme==='dark' ? 'light' : 'dark';
+  localStorage.setItem('sparkz-theme', theme);
+  applyTheme();
+}
+
+/* ── Real-time online counter (Socket.io) ── */
+(function(){
+  var badge   = document.getElementById('visitorBadge');
+  var countEl = document.getElementById('visitorCount');
+  var labelEl = document.getElementById('visitorLabel');
+
+  // In development use localhost; in production this is replaced by the
+  // actual Railway URL via window.BACKEND_URL (set before this script runs)
+  var BACKEND = (typeof window.BACKEND_URL !== 'undefined' && window.BACKEND_URL)
+    ? window.BACKEND_URL
+    : 'http://localhost:3001';
+
+  function show(n){
+    if(!countEl || !badge) return;
+    n = Math.max(1, Math.round(n));
+    countEl.textContent = n;
+    labelEl.textContent = n === 1 ? 'online now' : 'online now';
+    badge.classList.add('visible');
+  }
+
+  // Load Socket.io client from CDN, then connect
+  var s = document.createElement('script');
+  s.src = 'https://cdn.socket.io/4.7.2/socket.io.min.js';
+  s.onload = function(){
+    try{
+      var socket = io(BACKEND, { transports: ['websocket','polling'] });
+      socket.on('online-count', function(n){ show(n); });
+      socket.on('connect_error', function(){
+        // Backend unreachable — show nothing
+        if(badge) badge.classList.remove('visible');
+      });
+    }catch(e){}
+  };
+  s.onerror = function(){
+    // CDN failed — hide badge silently
+    if(badge) badge.classList.remove('visible');
+  };
+  document.head.appendChild(s);
+})();
+
+/* ── Boot ── */
+if(window.location.protocol === 'file:'){
+  document.getElementById('fileProtocolWarn').style.display = 'block';
+} else {
+  loadIframes();
+}
+
+applyTheme();
+document.getElementById('frame-math').addEventListener('load', function(){ applyTheme(); });
+document.getElementById('frame-apwh').addEventListener('load', function(){ applyTheme(); });
+</script>
+</body>
+</html>
