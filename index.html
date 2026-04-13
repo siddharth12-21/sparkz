@@ -483,62 +483,22 @@ function toggleTheme(){
   applyTheme();
 }
 
-/* ── Real-time online counter (Socket.io + HTTP fallback) ── */
+/* ── Visitor counter ── */
 (function(){
   var badge   = document.getElementById('visitorBadge');
   var countEl = document.getElementById('visitorCount');
   var labelEl = document.getElementById('visitorLabel');
 
-  var BACKEND = (typeof window.BACKEND_URL !== 'undefined' && window.BACKEND_URL)
-    ? window.BACKEND_URL
-    : 'http://localhost:3001';
-
-  var socketConnected = false;
-  var pollTimer = null;
-
-  function show(n){
-    if(!countEl || !badge) return;
-    n = Math.max(1, Math.round(n));
-    countEl.textContent = n;
-    labelEl.textContent = 'online now';
-    badge.classList.add('visible');
-  }
-
-  function pollStats(){
-    fetch(BACKEND + '/stats', { cache: 'no-store' })
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(d){ if(d && typeof d.online === 'number') show(d.online); })
-      .catch(function(){ if(badge) badge.classList.remove('visible'); });
-  }
-
-  function startPolling(){
-    if(pollTimer) return;
-    pollStats();
-    pollTimer = setInterval(pollStats, 30000);
-  }
-
-  // Load Socket.io client from CDN, then connect
-  var s = document.createElement('script');
-  s.src = 'https://cdn.socket.io/4.7.2/socket.io.min.js';
-  s.onload = function(){
-    try{
-      var socket = io(BACKEND, {
-        transports: ['websocket', 'polling'],
-        reconnectionAttempts: 3,
-        timeout: 5000,
-      });
-      socket.on('connect', function(){ socketConnected = true; if(pollTimer){ clearInterval(pollTimer); pollTimer = null; } });
-      socket.on('online-count', function(n){ show(n); });
-      socket.on('connect_error', function(){
-        if(!socketConnected) startPolling();
-      });
-    }catch(e){ startPolling(); }
-  };
-  s.onerror = function(){ startPolling(); };
-  document.head.appendChild(s);
-
-  // Start polling immediately as a safety net; socket will cancel it if it connects
-  setTimeout(function(){ if(!socketConnected) startPolling(); }, 6000);
+  fetch('/api/visits', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if(!d || typeof d.count !== 'number') return;
+      if(!countEl || !badge) return;
+      countEl.textContent = d.count.toLocaleString();
+      labelEl.textContent = 'visits';
+      badge.classList.add('visible');
+    })
+    .catch(function(){ /* silently hide badge */ });
 })();
 
 /* ── Boot ── */
