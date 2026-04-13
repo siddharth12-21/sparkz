@@ -483,24 +483,38 @@ function toggleTheme(){
   applyTheme();
 }
 
-/* ── Real-time online counter (Socket.io) ── */
+/* ── Real-time online counter (Socket.io + HTTP fallback) ── */
 (function(){
   var badge   = document.getElementById('visitorBadge');
   var countEl = document.getElementById('visitorCount');
   var labelEl = document.getElementById('visitorLabel');
 
-  // In development use localhost; in production this is replaced by the
-  // actual Railway URL via window.BACKEND_URL (set before this script runs)
   var BACKEND = (typeof window.BACKEND_URL !== 'undefined' && window.BACKEND_URL)
     ? window.BACKEND_URL
     : 'http://localhost:3001';
+
+  var socketConnected = false;
+  var pollTimer = null;
 
   function show(n){
     if(!countEl || !badge) return;
     n = Math.max(1, Math.round(n));
     countEl.textContent = n;
-    labelEl.textContent = n === 1 ? 'online now' : 'online now';
+    labelEl.textContent = 'online now';
     badge.classList.add('visible');
+  }
+
+  function pollStats(){
+    fetch(BACKEND + '/stats', { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ if(d && typeof d.online === 'number') show(d.online); })
+      .catch(function(){ if(badge) badge.classList.remove('visible'); });
+  }
+
+  function startPolling(){
+    if(pollTimer) return;
+    pollStats();
+    pollTimer = setInterval(pollStats, 30000);
   }
 
   // Load Socket.io client from CDN, then connect
@@ -508,19 +522,23 @@ function toggleTheme(){
   s.src = 'https://cdn.socket.io/4.7.2/socket.io.min.js';
   s.onload = function(){
     try{
-      var socket = io(BACKEND, { transports: ['websocket','polling'] });
+      var socket = io(BACKEND, {
+        transports: ['websocket', 'polling'],
+        reconnectionAttempts: 3,
+        timeout: 5000,
+      });
+      socket.on('connect', function(){ socketConnected = true; if(pollTimer){ clearInterval(pollTimer); pollTimer = null; } });
       socket.on('online-count', function(n){ show(n); });
       socket.on('connect_error', function(){
-        // Backend unreachable — show nothing
-        if(badge) badge.classList.remove('visible');
+        if(!socketConnected) startPolling();
       });
-    }catch(e){}
+    }catch(e){ startPolling(); }
   };
-  s.onerror = function(){
-    // CDN failed — hide badge silently
-    if(badge) badge.classList.remove('visible');
-  };
+  s.onerror = function(){ startPolling(); };
   document.head.appendChild(s);
+
+  // Start polling immediately as a safety net; socket will cancel it if it connects
+  setTimeout(function(){ if(!socketConnected) startPolling(); }, 6000);
 })();
 
 /* ── Boot ── */
