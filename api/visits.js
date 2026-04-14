@@ -1,14 +1,19 @@
-import { kv } from '@vercel/kv';
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store');
 
+  const url   = process.env.KV_REST_API_URL   || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!url || !token) return res.json({ count: null });
+
   try {
-    const count = await kv.incr('sparkz:visits');
-    res.json({ count });
+    const r    = await fetch(`${url}/incr/sparkz:visits`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await r.json();
+    res.json({ count: data.result ?? null });
   } catch {
-    // KV not configured — return null so frontend hides the badge
     res.json({ count: null });
   }
 }
