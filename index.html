@@ -483,22 +483,41 @@ function toggleTheme(){
   applyTheme();
 }
 
-/* ── Visitor counter ── */
+/* ── Real-time online counter (Socket.io) ── */
 (function(){
   var badge   = document.getElementById('visitorBadge');
   var countEl = document.getElementById('visitorCount');
   var labelEl = document.getElementById('visitorLabel');
 
-  fetch('/api/visits', { cache: 'no-store' })
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(d){
-      if(!d || typeof d.count !== 'number') return;
-      if(!countEl || !badge) return;
-      countEl.textContent = d.count.toLocaleString();
-      labelEl.textContent = 'visits';
-      badge.classList.add('visible');
-    })
-    .catch(function(){ /* silently hide badge */ });
+  var BACKEND = (typeof window.BACKEND_URL !== 'undefined' && window.BACKEND_URL)
+    ? window.BACKEND_URL
+    : 'http://localhost:3001';
+
+  function show(n){
+    if(!countEl || !badge) return;
+    n = Math.max(1, Math.round(n));
+    countEl.textContent = n;
+    labelEl.textContent = n === 1 ? 'online now' : 'online now';
+    badge.classList.add('visible');
+  }
+
+  var s = document.createElement('script');
+  s.src = 'https://cdn.socket.io/4.7.2/socket.io.min.js';
+  s.onload = function(){
+    try{
+      var socket = io(BACKEND, {
+        transports: ['websocket', 'polling'],
+        reconnectionAttempts: 5,
+        timeout: 10000,
+      });
+      socket.on('online-count', function(n){ show(n); });
+      socket.on('connect_error', function(){
+        if(badge) badge.classList.remove('visible');
+      });
+    }catch(e){}
+  };
+  s.onerror = function(){ if(badge) badge.classList.remove('visible'); };
+  document.head.appendChild(s);
 })();
 
 /* ── Boot ── */
