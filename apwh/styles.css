@@ -106,9 +106,9 @@ body {
   border-bottom: 1px solid var(--bg-elevated);
 }
 .logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.6rem;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.5px;
 }
 .logo span { color: var(--accent); }
@@ -559,9 +559,9 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,.4);
 }
 .modal h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.8rem;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 12px;
 }
 .modal p { color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; font-size: .92rem; }
@@ -847,7 +847,7 @@ body {
   min-width: 52px;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
 }
 .gb-ce {
   font-size: .7rem;
@@ -1003,7 +1003,7 @@ body {
   font-size: .8rem;
   font-weight: 800;
   color: var(--accent-light);
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
   flex-shrink: 0;
 }

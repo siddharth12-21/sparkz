@@ -3,41 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math Playground — Interactive Math Simulations &amp; Graphing Calculator</title>
+<title>Math — Interactive Simulations &amp; Graphing Calculator</title>
 <meta name="description" content="Master pre-calculus and beyond with 35+ interactive simulations. Explore paradoxes, Riemann sums, conic sections, unit circle, polar curves, vectors, and a Desmos-class graphing calculator — all free, no signup.">
 <meta name="keywords" content="math playground, interactive math, graphing calculator, Riemann sums, conic sections, unit circle, trigonometry, pre-calculus, math simulations, learn math, polar graphs, vectors, sequences, limits, probability">
-<meta name="author" content="Math Playground">
+<meta name="author" content="Sparkz">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://siddharth.github.io/wizard-mermaid-paradox/">
+<link rel="canonical" href="https://sparkz.quest/math">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Math Playground — Interactive Math Simulations">
+<meta property="og:title" content="Sparkz Math — Interactive Simulations">
 <meta property="og:description" content="35+ free interactive simulations to master pre-calc: paradoxes, Riemann sums, conics, unit circle, polar curves, vectors, and a Desmos-class graphing calculator.">
-<meta property="og:url" content="https://siddharth.github.io/wizard-mermaid-paradox/">
-<meta property="og:site_name" content="Math Playground">
+<meta property="og:url" content="https://sparkz.quest/math">
+<meta property="og:site_name" content="Sparkz">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Math Playground — Interactive Math Simulations">
+<meta name="twitter:title" content="Sparkz Math — Interactive Simulations">
 <meta name="twitter:description" content="35+ free interactive simulations to master pre-calc: paradoxes, Riemann sums, conics, unit circle, polar curves, vectors, and a graphing calculator.">
 
 <!-- Theme & PWA hints -->
-<meta name="theme-color" content="#0c0a1a">
+<meta name="theme-color" content="#0f1117">
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Math Playground">
+<meta name="apple-mobile-web-app-title" content="Sparkz Math">
 
 <!-- Structured Data: WebApplication -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Math Playground",
+  "name": "Sparkz Math",
   "description": "Interactive math simulations and graphing calculator for learning pre-calculus and beyond.",
-  "url": "https://siddharth.github.io/wizard-mermaid-paradox/",
+  "url": "https://sparkz.quest/math",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -47,28 +47,34 @@
 }
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
 
   *{margin:0;padding:0;box-sizing:border-box}
 
   :root{
+    /* Unified site palette */
+    --bg:#0f1117;--surface:#1a1d27;--elevated:#242836;
+    --text:#e8eaf0;--text-dim:#8b90a0;
+    --accent:#6c63ff;--accent-light:#8b85ff;--accent-glow:rgba(108,99,255,0.25);
+    --border:rgba(255,255,255,0.07);
+    --radius:10px;
+    /* Paradox-specific (still used globally for paradox section) */
     --wizard:#7c3aed;--wizard-glow:#a78bfa;
     --mermaid:#06b6d4;--mermaid-glow:#67e8f9;
     --gold:#f59e0b;--gold-glow:#fbbf24;
-    --dark:#0f0a1a;--darker:#070510;
-    --surface:rgba(255,255,255,0.04);
-    --text:#e2e0ea;--text-dim:#8b85a0;
+    --dark:#0f1117;--darker:#070c15;
+    --surface-old:rgba(255,255,255,0.04);
     --green:#4ade80;--red:#f87171;
   }
 
-  body{font-family:'Crimson Text',serif;background:var(--darker);color:var(--text);min-height:100vh;overflow-x:hidden}
+  body{font-family:'Inter','Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
   canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 
   .container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
 
   header{text-align:center;padding:2rem 0 1rem}
-  header h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,4vw,2.4rem);font-weight:900;background:linear-gradient(135deg,var(--wizard-glow),var(--gold-glow),var(--mermaid-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.02em;line-height:1.3}
-  header .subtitle{font-size:1.05rem;color:var(--text-dim);margin-top:.5rem;font-style:italic}
+  header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;background:linear-gradient(135deg,var(--accent-light),var(--accent),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.01em;line-height:1.2}
+  header .subtitle{font-size:1rem;color:var(--text-dim);margin-top:.5rem;font-style:normal}
 
   /* ── Tabs ── */
   .tab-nav{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin:1.5rem 0 0;border-bottom:1px solid rgba(255,255,255,0.08)}
@@ -82,28 +88,28 @@
   @keyframes fadeTab{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
   /* ── Shared Components ── */
-  .panel{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:2rem 2.5rem;margin:1.5rem 0;backdrop-filter:blur(12px);position:relative;overflow:hidden}
-  .panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(124,58,237,0.06),transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.06),transparent 60%);pointer-events:none}
-  .panel h2{font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:var(--gold-glow);margin-bottom:1rem;text-align:center}
-  .panel p{font-size:1.05rem;line-height:1.75;color:var(--text);margin-bottom:.65rem}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem 2.5rem;margin:1.5rem 0;backdrop-filter:blur(12px);position:relative;overflow:hidden}
+  .panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(108,99,255,0.05),transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(129,140,248,0.04),transparent 60%);pointer-events:none}
+  .panel h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent-light);margin-bottom:1rem;text-align:center}
+  .panel p{font-size:1rem;line-height:1.75;color:var(--text);margin-bottom:.65rem}
 
   .hl-wizard{color:var(--wizard-glow);font-weight:600}
   .hl-mermaid{color:var(--mermaid-glow);font-weight:600}
   .hl-gold{color:var(--gold-glow);font-weight:600}
 
   .characters{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.5rem 0}
-  .char-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;transition:transform .3s ease}
+  .char-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;transition:transform .3s ease}
   .char-card:hover{transform:translateY(-3px)}
   .char-card .icon{font-size:3rem;margin-bottom:.5rem;display:block}
-  .char-card h3{font-family:'Cinzel Decorative',serif;font-size:1.1rem;margin-bottom:.4rem}
+  .char-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:.4rem}
   .char-card p{font-size:.9rem;color:var(--text-dim);line-height:1.55}
 
   .controls{display:flex;gap:.65rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
 
-  button{font-family:'Crimson Text',serif;font-size:.95rem;padding:.55rem 1.3rem;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:var(--text);cursor:pointer;transition:all .2s ease;display:inline-flex;align-items:center;gap:.4rem}
-  button:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);transform:translateY(-1px)}
-  button.primary{background:linear-gradient(135deg,var(--wizard),#5b21b6);border-color:var(--wizard-glow);font-weight:600}
-  button.primary:hover{background:linear-gradient(135deg,var(--wizard-glow),var(--wizard));box-shadow:0 0 20px rgba(124,58,237,0.3)}
+  button{font-family:'Inter',sans-serif;font-size:.9rem;padding:.55rem 1.3rem;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);cursor:pointer;transition:all .2s ease;display:inline-flex;align-items:center;gap:.4rem}
+  button:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);transform:translateY(-1px)}
+  button.primary{background:linear-gradient(135deg,var(--accent),#4f46e5);border-color:var(--accent-light);font-weight:600}
+  button.primary:hover{background:linear-gradient(135deg,var(--accent-light),var(--accent));box-shadow:0 0 20px var(--accent-glow)}
   button.danger{border-color:#ef4444;color:#fca5a5}
   button:disabled{opacity:.4;cursor:not-allowed;transform:none}
   button.midnight{background:linear-gradient(135deg,#1e1b4b,#312e81);border:1px solid #6366f1;color:#c7d2fe;font-weight:600;position:relative;overflow:hidden}
@@ -122,15 +128,15 @@
   .stat-card .value{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:600}
 
   .vis-area{position:relative;min-height:200px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.25rem;overflow:hidden;margin-bottom:1.25rem}
-  .vis-area .vis-label{font-family:'Cinzel Decorative',serif;font-size:.85rem;color:var(--gold);text-align:center;margin-bottom:.75rem;opacity:.7}
+  .vis-area .vis-label{font-family:'Space Grotesk',sans-serif;font-size:.8rem;font-weight:600;color:var(--text-dim);text-align:center;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em;opacity:.85}
   .vis-area canvas{width:100%;display:block}
 
   .graph-area{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
-  .graph-area h3{font-family:'Cinzel Decorative',serif;font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:.75rem}
+  .graph-area h3{font-family:'Space Grotesk',sans-serif;font-size:.8rem;font-weight:600;color:var(--text-dim);text-align:center;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em}
   .graph-area canvas{width:100%;height:180px;display:block}
 
   .log-box{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem;max-height:180px;overflow-y:auto;margin-bottom:1.25rem}
-  .log-box h3{font-family:'Cinzel Decorative',serif;font-size:.85rem;color:var(--text-dim);margin-bottom:.6rem}
+  .log-box h3{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;color:var(--text-dim);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em}
   .log-box::-webkit-scrollbar{width:5px}
   .log-box::-webkit-scrollbar-track{background:transparent}
   .log-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
@@ -143,7 +149,7 @@
 
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.25rem 0}
   .info-card{background:rgba(0,0,0,0.25);border-radius:14px;padding:1.25rem;position:relative}
-  .info-card h3{font-family:'Cinzel Decorative',serif;font-size:.95rem;margin-bottom:.6rem}
+  .info-card h3{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;margin-bottom:.6rem}
   .info-card p{font-size:.9rem;line-height:1.6;color:var(--text-dim)}
   .info-card .result{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:600;margin-top:.6rem;text-align:center}
 
@@ -154,7 +160,7 @@
   .inline-solution{display:none;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(6,182,212,0.08));border:1px solid rgba(99,102,241,0.2);border-radius:14px;padding:1.5rem;margin-top:1.25rem;animation:solIn .8s ease}
   .inline-solution.visible{display:block}
   @keyframes solIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .inline-solution h3{font-family:'Cinzel Decorative',serif;font-size:1.05rem;color:var(--gold-glow);text-align:center;margin-bottom:.85rem}
+  .inline-solution h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--accent-light);text-align:center;margin-bottom:.85rem}
   .sol-steps{list-style:none;padding:0;counter-reset:sol}
   .sol-steps li{counter-increment:sol;padding:.6rem 0 .6rem 2.3rem;position:relative;font-size:.95rem;line-height:1.6;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04)}
   .sol-steps li:last-child{border-bottom:none}
@@ -172,7 +178,7 @@
   .empty-msg{text-align:center;color:var(--text-dim);font-style:italic;padding:1.5rem;font-size:.95rem}
 
   .tracker{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem;margin-bottom:1.25rem}
-  .tracker h3{font-family:'Cinzel Decorative',serif;font-size:.85rem;color:var(--text-dim);margin-bottom:.6rem;text-align:center}
+  .tracker h3{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;color:var(--text-dim);margin-bottom:.6rem;text-align:center;text-transform:uppercase;letter-spacing:.05em}
   .tracker-row{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap}
   .tracker-row input{font-family:'JetBrains Mono',monospace;font-size:.9rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);padding:.4rem .65rem;width:110px;outline:none}
   .tracker-row input:focus{border-color:var(--mermaid)}
@@ -213,7 +219,7 @@
   .wheel-stage{position:relative;height:300px;overflow:hidden}
 
   footer{text-align:center;padding:2rem 0;color:var(--text-dim);font-size:.8rem}
-  footer a{color:var(--mermaid-glow);text-decoration:none}
+  footer a{color:var(--accent-light);text-decoration:none}
 
   /* Hotel rooms */
   .hotel-rooms{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:120px;padding:.5rem 0}
@@ -279,21 +285,21 @@
     text-align:center;max-width:720px;padding:2rem;position:relative;z-index:1;
   }
   .welcome-badge{
-    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
-    color:var(--mermaid-glow);background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);
+    display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent-light);background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.25);
     padding:.35rem 1rem;border-radius:99px;margin-bottom:1.5rem;
     animation:fadeSlideUp .8s ease both;
   }
   .welcome-title{
-    font-family:'Cinzel Decorative',serif;font-weight:900;
-    font-size:clamp(2rem,6vw,3.8rem);line-height:1.15;
-    background:linear-gradient(135deg,var(--wizard-glow) 0%,var(--gold-glow) 40%,var(--mermaid-glow) 80%);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(2.2rem,6vw,4rem);line-height:1.1;letter-spacing:-.02em;
+    background:linear-gradient(135deg,var(--accent-light) 0%,var(--accent) 50%,#818cf8 100%);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     margin-bottom:1rem;
     animation:fadeSlideUp .8s ease .15s both;
   }
   .welcome-subtitle{
-    font-family:'Crimson Text',serif;font-size:clamp(1rem,2.5vw,1.3rem);
+    font-family:'Inter',sans-serif;font-size:clamp(.95rem,2.5vw,1.15rem);
     color:var(--text-dim);line-height:1.6;max-width:540px;margin:0 auto 2rem;
     animation:fadeSlideUp .8s ease .3s both;
   }
@@ -303,40 +309,40 @@
     animation:fadeSlideUp .8s ease .45s both;
   }
   .welcome-card{
-    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.03);border:1px solid var(--border);
     border-radius:12px;padding:.75rem .5rem;transition:all .3s ease;cursor:default;
   }
   .welcome-card:hover{
-    border-color:var(--gold);background:rgba(255,255,255,0.06);transform:translateY(-3px);
+    border-color:var(--accent);background:rgba(108,99,255,0.07);transform:translateY(-3px);
   }
   .welcome-card .wc-icon{font-size:1.8rem;display:block;margin-bottom:.3rem}
-  .welcome-card .wc-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-dim);letter-spacing:.04em}
+  .welcome-card .wc-label{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:500;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
   .welcome-count{
     font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text-dim);margin-bottom:2rem;
     animation:fadeSlideUp .8s ease .55s both;
   }
-  .welcome-count strong{color:var(--gold-glow);font-size:1.1rem}
+  .welcome-count strong{color:var(--accent-light);font-size:1.1rem}
   .welcome-enter{
-    font-family:'Cinzel Decorative',serif;font-size:1.1rem;font-weight:700;
-    padding:1rem 3rem;border:none;border-radius:99px;cursor:pointer;
-    background:linear-gradient(135deg,var(--wizard),var(--mermaid));
-    color:#fff;letter-spacing:.06em;
-    box-shadow:0 0 40px rgba(124,58,237,0.3),0 0 80px rgba(6,182,212,0.15);
+    font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;
+    padding:.9rem 2.8rem;border:none;border-radius:99px;cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),#4f46e5);
+    color:#fff;letter-spacing:.04em;
+    box-shadow:0 0 32px rgba(108,99,255,0.35),0 4px 16px rgba(0,0,0,0.3);
     transition:all .3s ease;position:relative;overflow:hidden;
     animation:fadeSlideUp .8s ease .65s both;
   }
   .welcome-enter:hover{
-    transform:translateY(-2px) scale(1.03);
-    box-shadow:0 0 50px rgba(124,58,237,0.5),0 0 100px rgba(6,182,212,0.25);
+    transform:translateY(-2px) scale(1.02);
+    box-shadow:0 0 48px rgba(108,99,255,0.5),0 4px 20px rgba(0,0,0,0.4);
   }
   .welcome-enter::after{
     content:'';position:absolute;inset:-2px;border-radius:99px;
-    background:linear-gradient(135deg,var(--wizard-glow),var(--gold-glow),var(--mermaid-glow));
+    background:linear-gradient(135deg,var(--accent-light),var(--accent));
     z-index:-1;opacity:0;transition:opacity .3s ease;filter:blur(12px);
   }
   .welcome-enter:hover::after{opacity:.5}
   .welcome-hint{
-    font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(255,255,255,0.2);
+    font-family:'Inter',sans-serif;font-size:.65rem;color:rgba(255,255,255,0.18);
     margin-top:1.5rem;letter-spacing:.06em;
     animation:fadeSlideUp .8s ease .8s both;
   }
@@ -349,18 +355,18 @@
   }
 
   /* ── Section Navigation ── */
-  .section-nav{display:flex;gap:.25rem;justify-content:center;flex-wrap:wrap;margin:1.25rem 0;padding:.5rem;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:16px}
-  .section-btn{font-family:'Cinzel Decorative',serif;font-size:.82rem;padding:.6rem 1.1rem;background:none;border:1px solid transparent;border-radius:12px;color:var(--text-dim);cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+  .section-nav{display:flex;gap:.25rem;justify-content:center;flex-wrap:wrap;margin:1.25rem 0;padding:.5rem;background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:14px}
+  .section-btn{font-family:'Space Grotesk',sans-serif;font-size:.8rem;font-weight:500;padding:.55rem 1rem;background:none;border:1px solid transparent;border-radius:10px;color:var(--text-dim);cursor:pointer;transition:all .25s ease;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
   .section-btn:hover{color:var(--text);background:rgba(255,255,255,0.05)}
-  .section-btn.active{color:var(--gold-glow);background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(124,58,237,0.1));border-color:rgba(245,158,11,0.3);box-shadow:0 0 16px rgba(245,158,11,0.1)}
+  .section-btn.active{color:var(--accent-light);background:rgba(108,99,255,0.12);border-color:rgba(108,99,255,0.35);box-shadow:0 0 14px rgba(108,99,255,0.1)}
   .section-btn .sec-icon{font-style:normal}
   .section-content{display:none;animation:fadeTab .5s ease}
   .section-content.active{display:block}
 
   /* ── Topic Headers ── */
   .topic-header{text-align:center;margin-bottom:1.5rem;padding-top:.5rem}
-  .topic-header h2{font-family:'Cinzel Decorative',serif;font-size:1.4rem;background:linear-gradient(135deg,var(--wizard-glow),var(--mermaid-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
-  .topic-header p{font-size:.95rem;color:var(--text-dim);font-style:italic}
+  .topic-header h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--accent-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
+  .topic-header p{font-size:.95rem;color:var(--text-dim);font-style:normal}
 
   /* ── Interactive Controls ── */
   .ctrl-row{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
@@ -391,7 +397,7 @@
   .approach-tbl .from-right{color:var(--mermaid-glow)}
   .concept-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.5rem;margin-bottom:1.25rem;backdrop-filter:blur(12px);position:relative;overflow:hidden}
   .concept-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(124,58,237,0.06),transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.06),transparent 60%);pointer-events:none}
-  .concept-card h3{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold-glow);margin-bottom:.75rem;text-align:center}
+  .concept-card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--accent-light);margin-bottom:.75rem;text-align:center}
   .seq-bar-wrap{display:flex;align-items:flex-end;gap:3px;justify-content:center;min-height:200px;padding:1rem 0}
   .seq-bar{min-width:8px;border-radius:3px 3px 0 0;transition:height .3s ease;position:relative}
   .angle-display{font-family:'JetBrains Mono',monospace;text-align:center;padding:.5rem;margin-bottom:.75rem}
@@ -506,8 +512,9 @@
 
   /* ── Light mode overrides ── */
   body.light-mode{
-    --bg:#f0f2f8;--surface:rgba(0,0,0,0.04);
+    --bg:#f0f2f8;--surface:rgba(0,0,0,0.04);--elevated:#e4e6f0;
     --text:#12112b;--text-dim:#55577a;--border:rgba(0,0,0,0.1);
+    --accent:#5b4fcf;--accent-light:#7c72e8;--accent-glow:rgba(91,79,207,0.13);
     --dark:#e8eaf4;--darker:#f0f2f8;
   }
   body.light-mode{background:var(--bg);color:var(--text)}
@@ -515,7 +522,7 @@
   body.light-mode .site-header{background:rgba(245,243,240,0.85);border-color:var(--border)}
   body.light-mode .site-header h1,.light-mode .subtitle{color:var(--text)}
   body.light-mode .section-btn{background:var(--surface);color:var(--text-dim);border-color:var(--border)}
-  body.light-mode .section-btn.active{background:var(--wizard);color:#fff}
+  body.light-mode .section-btn.active{background:var(--accent);color:#fff}
   body.light-mode .section-content{color:var(--text)}
   body.light-mode .tab-btn{background:var(--surface);color:var(--text-dim);border-color:var(--border)}
   body.light-mode .tab-btn.active{background:var(--wizard);color:#fff}
@@ -562,6 +569,26 @@
   body.light-mode .char-card{background:rgba(0,0,0,0.04);border-color:var(--border)}
   body.light-mode button{background:rgba(0,0,0,0.06);border-color:var(--border);color:var(--text)}
   body.light-mode button:hover{background:rgba(109,40,217,0.12);border-color:#6d28d9}
+
+  /* ═══════════════════════════════════════════════
+     PARADOX SECTION — magical theme scoped here only
+  ═══════════════════════════════════════════════ */
+  #section-paradoxes{font-family:'Crimson Text',serif}
+  #section-paradoxes .panel::before{background:radial-gradient(ellipse at 20% 0%,rgba(124,58,237,0.06),transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.06),transparent 60%)}
+  #section-paradoxes button{font-family:'Crimson Text',serif}
+  #section-paradoxes button.primary{background:linear-gradient(135deg,var(--wizard),#5b21b6);border-color:var(--wizard-glow)}
+  #section-paradoxes button.primary:hover{background:linear-gradient(135deg,var(--wizard-glow),var(--wizard));box-shadow:0 0 20px rgba(124,58,237,0.3)}
+  #section-paradoxes .panel h2{font-family:'Cinzel Decorative',serif;color:var(--gold-glow)}
+  #section-paradoxes .panel h3{font-family:'Cinzel Decorative',serif}
+  #section-paradoxes .char-card h3{font-family:'Cinzel Decorative',serif}
+  #section-paradoxes .vis-area .vis-label{font-family:'Cinzel Decorative',serif;color:var(--gold)}
+  #section-paradoxes .graph-area h3{font-family:'Cinzel Decorative',serif;color:var(--text-dim)}
+  #section-paradoxes .log-box h3{font-family:'Cinzel Decorative',serif;color:var(--text-dim)}
+  #section-paradoxes .tracker h3{font-family:'Cinzel Decorative',serif;color:var(--text-dim)}
+  #section-paradoxes .info-card h3{font-family:'Cinzel Decorative',serif}
+  #section-paradoxes .inline-solution h3{font-family:'Cinzel Decorative',serif;color:var(--gold-glow)}
+  #section-paradoxes .stat-card .label{font-family:'JetBrains Mono',monospace}
+  #section-paradoxes .midnight-title{font-family:'Cinzel Decorative',serif}
 </style>
 </head>
 <body>
@@ -579,7 +606,7 @@
 
   <div class="welcome-inner">
     <div class="welcome-badge">Interactive Mathematics</div>
-    <div class="welcome-title">Math Playground</div>
+    <div class="welcome-title">Math</div>
     <p class="welcome-subtitle">
       Master pre-calc and beyond through hands-on interactive simulations.
       From paradoxes to integrals, explore math visually.
@@ -609,7 +636,7 @@
 
 <div class="container" style="display:none" id="main-container">
   <header>
-    <h1>Math Playground</h1>
+    <h1>Math</h1>
     <p class="subtitle">Interactive simulations &mdash; from paradoxes to pre-calc and beyond</p>
   </header>
 

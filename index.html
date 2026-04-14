@@ -72,7 +72,7 @@
 }
 </script>
 
-<meta name="theme-color" content="#0c0a1a">
+<meta name="theme-color" content="#0f1117">
 <script>
   window.STUDYHUB_BUILD = "2026-04-05-7";
   // ↓ Set to your Railway backend URL after deploying (keep trailing slash off)
@@ -86,13 +86,13 @@
 /* ── Reset & base ── */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0c0a1a;--surface:#161228;--text:#eee8f5;--text-dim:#8b83a0;
-  --accent:#a78bfa;--accent2:#60a5fa;--accent-glow:rgba(167,139,250,0.28);
-  --border:rgba(255,255,255,0.08);--nav-h:52px;
+  --bg:#0f1117;--surface:#1a1d27;--text:#e8eaf0;--text-dim:#8b90a0;
+  --accent:#6c63ff;--accent2:#818cf8;--accent-glow:rgba(108,99,255,0.28);
+  --border:rgba(255,255,255,0.07);--nav-h:52px;
 }
 html.light{
   --bg:#f0f2f8;--surface:#ffffff;--text:#12112b;--text-dim:#5a5880;
-  --accent:#6d28d9;--accent2:#1d4ed8;--accent-glow:rgba(109,40,217,0.14);
+  --accent:#5b4fcf;--accent2:#4f46e5;--accent-glow:rgba(91,79,207,0.14);
   --border:rgba(0,0,0,0.09);
 }
 html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
@@ -302,7 +302,7 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
     <div class="splash-modules">
       <div class="splash-card">
         <div class="splash-card-icon">&#8721;</div>
-        <div class="splash-card-title">Math Playground</div>
+        <div class="splash-card-title">Math</div>
         <div class="splash-card-desc">Graphing calculator, Riemann sums, conics, unit circle, vectors, and more — all interactive.</div>
       </div>
       <div class="splash-card">
@@ -337,7 +337,7 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
     <div class="logo" onclick="showSplash()" title="Back to home">Sparkz<span>.quest</span></div>
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="math" onclick="switchTab('math')">
-        <span class="tab-icon" aria-hidden="true">&#8721;</span>Math Playground
+        <span class="tab-icon" aria-hidden="true">&#8721;</span>Math
       </button>
       <button class="nav-tab" data-tab="apwh" onclick="switchTab('apwh')">
         <span class="tab-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>AP World History
@@ -352,7 +352,7 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
   </nav>
 
   <div class="content">
-    <iframe class="tab-frame active" id="frame-math" title="Math Playground" src="about:blank"></iframe>
+    <iframe class="tab-frame active" id="frame-math" title="Math" src="about:blank"></iframe>
     <iframe class="tab-frame" id="frame-apwh" title="AP World History" src="about:blank"></iframe>
   </div>
 </div>
