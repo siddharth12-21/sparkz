@@ -843,20 +843,20 @@ body {
 }
 /* Play button is a circle */
 #globalPlayBtn {
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
-  font-size: 1rem;
+  font-size: .85rem;
   padding: 0;
 }
 #globalPlayBtn:hover {
   background: var(--accent-light);
   border-color: var(--accent-light);
   transform: scale(1.08);
-  box-shadow: 0 4px 14px var(--accent-glow);
+  box-shadow: 0 3px 10px var(--accent-glow);
 }
 
 .gb-compare.active {
