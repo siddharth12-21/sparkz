@@ -28,47 +28,58 @@
 }
 
 [data-theme="light"] {
-  --bg:            #f0f2f8;
+  --bg:            #f5f6fa;
   --bg-surface:    #ffffff;
-  --bg-elevated:   #e4e6f0;
-  --text:          #12112b;
-  --text-muted:    #55577a;
-  --text-dim:      #9899b8;
-  --accent:        #5b4fcf;
-  --accent-light:  #7c72e8;
-  --accent-glow:   rgba(91, 79, 207, 0.13);
-  --shadow:        0 4px 24px rgba(0,0,0,.10);
+  --bg-elevated:   #eef0f6;
+  --text:          #111827;
+  --text-muted:    #6b7280;
+  --text-dim:      #9ca3af;
+  --accent:        #4f46e5;
+  --accent-light:  #6366f1;
+  --accent-glow:   rgba(79, 70, 229, 0.12);
+  --shadow:        0 2px 12px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.05);
 }
 
 /* Light mode explicit overrides for elements with hardcoded dark colours */
 [data-theme="light"] body                  { background: var(--bg); }
-[data-theme="light"] #sidebar              { background: var(--bg-surface); border-right-color: var(--bg-elevated); }
-[data-theme="light"] #topBar               { background: var(--bg-surface); border-bottom-color: var(--bg-elevated); }
-[data-theme="light"] .map-legend           { background: var(--bg-surface); border-color: var(--bg-elevated); }
-[data-theme="light"] .map-info-panel       { background: var(--bg-surface); border-color: var(--bg-elevated); }
+[data-theme="light"] #sidebar              { background: var(--bg-surface); border-right-color: rgba(0,0,0,0.08); box-shadow: 2px 0 12px rgba(0,0,0,0.05); }
+[data-theme="light"] #topBar               { background: var(--bg-surface); border-bottom-color: rgba(0,0,0,0.08); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+[data-theme="light"] .logo                 { color: var(--text); }
+[data-theme="light"] .logo span            { color: var(--accent); }
+[data-theme="light"] .tagline              { color: var(--text-muted); }
+[data-theme="light"] .unit-item            { color: var(--text-muted); }
+[data-theme="light"] .unit-item:hover      { background: var(--bg-elevated); color: var(--text); }
+[data-theme="light"] .unit-item.active     { background: rgba(79,70,229,0.1); color: var(--accent); }
+[data-theme="light"] .unit-num             { background: var(--bg-elevated); color: var(--text-dim); }
+[data-theme="light"] .map-legend           { background: var(--bg-surface); border-color: rgba(0,0,0,0.08); box-shadow: var(--shadow); }
+[data-theme="light"] .map-info-panel       { background: var(--bg-surface); border-color: rgba(0,0,0,0.08); box-shadow: var(--shadow); }
 [data-theme="light"] .timeline-container   { background: var(--bg-surface); }
 [data-theme="light"] .study-container      { background: var(--bg-surface); }
-[data-theme="light"] .flashcard            { background: var(--bg-surface); border-color: var(--bg-elevated); }
+[data-theme="light"] .flashcard            { background: var(--bg-surface); border-color: rgba(0,0,0,0.08); box-shadow: var(--shadow); }
 [data-theme="light"] .flashcard-front,
 [data-theme="light"] .flashcard-back       { background: var(--bg-surface); color: var(--text); }
-[data-theme="light"] .era-chip             { background: var(--bg-elevated); color: var(--text-muted); border-color: var(--bg-elevated); }
+[data-theme="light"] .flashcard-front      { background: linear-gradient(135deg,#4f46e5,#6366f1); color: #fff; }
+[data-theme="light"] .era-chip             { background: var(--bg-elevated); color: var(--text-muted); border-color: rgba(0,0,0,0.08); }
 [data-theme="light"] .era-chip.active      { background: var(--accent); color: #fff; border-color: var(--accent); }
-[data-theme="light"] .tl-event            { background: var(--bg-elevated); border-left-color: var(--accent); }
-[data-theme="light"] .tl-year             { color: var(--accent); }
+[data-theme="light"] .tl-event            { background: var(--bg-surface); border-left-color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+[data-theme="light"] .tl-year             { color: var(--accent); font-weight: 700; }
 [data-theme="light"] .tl-desc             { color: var(--text-muted); }
 [data-theme="light"] .view-btn            { color: var(--text-muted); }
 [data-theme="light"] .view-btn:hover      { background: var(--bg-elevated); color: var(--text); }
-[data-theme="light"] .view-btn.active     { color: var(--accent); background: var(--accent-glow); border-color: var(--accent); }
-[data-theme="light"] .unit-item:hover     { background: var(--bg-elevated); }
-[data-theme="light"] .unit-item.active    { background: var(--accent-glow); }
-[data-theme="light"] .unit-num            { background: var(--bg-elevated); }
-[data-theme="light"] .welcome-overlay     { background: rgba(240,242,248,0.97); }
-[data-theme="light"] .sim-bar             { background: var(--bg-surface); border-top-color: var(--bg-elevated); }
+[data-theme="light"] .view-btn.active     { color: var(--accent); background: rgba(79,70,229,0.08); border-color: rgba(79,70,229,0.3); }
+[data-theme="light"] .welcome-overlay     { background: #f5f6fa; }
+[data-theme="light"] .sim-bar             { background: var(--bg-surface); border-top-color: rgba(0,0,0,0.08); box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
 [data-theme="light"] .sim-slider          { accent-color: var(--accent); }
-[data-theme="light"] .territory-label    { background: rgba(255,255,255,0.92) !important; color: #12112b !important; border: 1px solid rgba(0,0,0,0.12) !important; }
-[data-theme="light"] .leaflet-popup-content-wrapper { background: #fff; color: #12112b; }
+[data-theme="light"] .territory-label    { background: rgba(255,255,255,0.95) !important; color: #111827 !important; border: 1px solid rgba(0,0,0,0.12) !important; }
+[data-theme="light"] .leaflet-popup-content-wrapper { background: #fff; color: #111827; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
 [data-theme="light"] .leaflet-popup-tip  { background: #fff; }
 [data-theme="light"] .custom-marker      { box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+/* Buttons & badges */
+[data-theme="light"] button:not(.primary) { background: var(--bg-elevated); border-color: rgba(0,0,0,0.1); color: var(--text); }
+[data-theme="light"] button.primary       { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="light"] .modal               { background: var(--bg-surface); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+[data-theme="light"] .modal h2            { color: var(--text); }
+[data-theme="light"] .modal p             { color: var(--text-muted); }
 
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 15px; }

@@ -310,11 +310,13 @@
   }
   .welcome-card{
     background:rgba(255,255,255,0.03);border:1px solid var(--border);
-    border-radius:12px;padding:.75rem .5rem;transition:all .3s ease;cursor:default;
+    border-radius:12px;padding:.75rem .5rem;transition:all .25s ease;cursor:pointer;
   }
   .welcome-card:hover{
-    border-color:var(--accent);background:rgba(108,99,255,0.07);transform:translateY(-3px);
+    border-color:var(--accent);background:rgba(108,99,255,0.1);transform:translateY(-4px);
+    box-shadow:0 8px 24px rgba(108,99,255,0.15);
   }
+  .welcome-card:active{transform:translateY(-2px)}
   .welcome-card .wc-icon{font-size:1.8rem;display:block;margin-bottom:.3rem}
   .welcome-card .wc-label{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:500;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
   .welcome-count{
@@ -510,65 +512,104 @@
     .calc-grid.sci{grid-template-columns:repeat(5,1fr)}
   }
 
-  /* ── Light mode overrides ── */
+  /* ── Light mode ── */
   body.light-mode{
-    --bg:#f0f2f8;--surface:rgba(0,0,0,0.04);--elevated:#e4e6f0;
-    --text:#12112b;--text-dim:#55577a;--border:rgba(0,0,0,0.1);
-    --accent:#5b4fcf;--accent-light:#7c72e8;--accent-glow:rgba(91,79,207,0.13);
-    --dark:#e8eaf4;--darker:#f0f2f8;
+    --bg:#f5f6fa;--surface:#ffffff;--elevated:#eef0f6;
+    --text:#111827;--text-dim:#6b7280;--border:rgba(0,0,0,0.09);
+    --accent:#4f46e5;--accent-light:#6366f1;--accent-glow:rgba(79,70,229,0.14);
+    --dark:#eef0f6;--darker:#f5f6fa;
   }
   body.light-mode{background:var(--bg);color:var(--text)}
   body.light-mode #stars{opacity:0}
-  body.light-mode .site-header{background:rgba(245,243,240,0.85);border-color:var(--border)}
-  body.light-mode .site-header h1,.light-mode .subtitle{color:var(--text)}
-  body.light-mode .section-btn{background:var(--surface);color:var(--text-dim);border-color:var(--border)}
-  body.light-mode .section-btn.active{background:var(--accent);color:#fff}
-  body.light-mode .section-content{color:var(--text)}
-  body.light-mode .tab-btn{background:var(--surface);color:var(--text-dim);border-color:var(--border)}
-  body.light-mode .tab-btn.active{background:var(--wizard);color:#fff}
-  body.light-mode .glassmorphic{background:rgba(0,0,0,0.03);border-color:var(--border)}
-  body.light-mode .topic-header h2{color:var(--text)}
-  body.light-mode .ctrl-group label,.light-mode .stat-label{color:var(--text-dim)}
-  body.light-mode .ctrl-group select,.light-mode .ctrl-group input[type="number"]{background:#fff;border-color:var(--border);color:var(--text)}
-  body.light-mode .stat-value{color:var(--text)}
-  body.light-mode .method-btn{background:var(--surface);color:var(--text-dim);border-color:var(--border)}
-  body.light-mode .method-btn.active{background:var(--wizard);color:#fff}
-  body.light-mode .welcome-overlay{background:rgba(245,243,240,0.97)}
-  body.light-mode .welcome-title,.light-mode .welcome-subtitle{color:var(--text)}
-  body.light-mode .welcome-card{background:rgba(0,0,0,0.04);border-color:var(--border)}
-  body.light-mode .welcome-card .wc-label{color:var(--text)}
-  body.light-mode .calc-panel{background:linear-gradient(180deg,#f5f3f0,#eae7e2);border-color:var(--border)}
-  body.light-mode .calc-display{background:rgba(255,255,255,0.7);border-color:var(--border)}
-  body.light-mode .calc-result{color:var(--text)}
-  body.light-mode .calc-btn{background:rgba(0,0,0,0.04);border-color:var(--border);color:var(--text)}
-  body.light-mode .calc-btn:hover{background:rgba(0,0,0,0.09)}
-  body.light-mode .calc-btn.num{background:rgba(0,0,0,0.07)}
-  body.light-mode .graph-sidebar{border-color:var(--border)}
-  body.light-mode .calc-fn-row input{background:#fff;border-color:var(--border);color:var(--text)}
-  body.light-mode .concept-card{background:rgba(0,0,0,0.03);border-color:var(--border)}
-  body.light-mode .concept-card h3,.light-mode .concept-card p{color:var(--text)}
-  body.light-mode .site-footer{background:rgba(240,242,248,0.6);border-color:var(--border)}
-  body.light-mode .site-footer p{color:var(--text-dim)}
 
-  /* Canvas panels in light mode */
-  body.light-mode canvas{filter:none}
-  body.light-mode .panel{background:rgba(0,0,0,0.03);border-color:var(--border);color:var(--text)}
+  /* Layout chrome */
+  body.light-mode .container{background:transparent}
+  body.light-mode header h1{background:linear-gradient(135deg,#4f46e5,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  body.light-mode header .subtitle{color:var(--text-dim)}
+
+  /* Section nav */
+  body.light-mode .section-nav{background:#ffffff;border-color:var(--border);box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+  body.light-mode .section-btn{color:var(--text-dim);background:none;border-color:transparent}
+  body.light-mode .section-btn:hover{background:var(--elevated);color:var(--text)}
+  body.light-mode .section-btn.active{color:#fff;background:var(--accent);border-color:var(--accent);box-shadow:none}
+
+  /* Cards and panels */
+  body.light-mode .panel{background:#ffffff;border-color:var(--border);box-shadow:0 2px 12px rgba(0,0,0,0.07);color:var(--text)}
+  body.light-mode .panel::before{opacity:0}
+  body.light-mode .panel h2{color:var(--accent)}
   body.light-mode .panel h3{color:var(--text)}
-  body.light-mode input[type="range"]{accent-color:#6d28d9}
-  body.light-mode input[type="text"],body.light-mode input[type="number"],body.light-mode select{
-    background:#fff;border-color:var(--border);color:var(--text)
-  }
-  body.light-mode .tab-nav{border-bottom-color:var(--border)}
-  body.light-mode .tab-btn{color:var(--text-dim);border-bottom-color:transparent}
-  body.light-mode .tab-btn:hover{background:rgba(0,0,0,0.04);color:var(--text)}
-  body.light-mode .tab-btn.active{color:#6d28d9;border-bottom-color:#6d28d9;background:rgba(0,0,0,0.03)}
-  body.light-mode .stat-card{background:rgba(0,0,0,0.04);border-color:var(--border)}
+  body.light-mode .panel p{color:var(--text)}
+  body.light-mode .char-card{background:#ffffff;border-color:var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+  body.light-mode .stat-card{background:var(--elevated);border-color:var(--border)}
+  body.light-mode .stat-card .label{color:var(--text-dim)}
   body.light-mode .stat-card .value{color:var(--text)}
-  body.light-mode .graph-area{background:rgba(255,255,255,0.85);border-color:var(--border)}
-  body.light-mode .log-box{background:rgba(255,255,255,0.85);border-color:var(--border);color:var(--text)}
-  body.light-mode .char-card{background:rgba(0,0,0,0.04);border-color:var(--border)}
-  body.light-mode button{background:rgba(0,0,0,0.06);border-color:var(--border);color:var(--text)}
-  body.light-mode button:hover{background:rgba(109,40,217,0.12);border-color:#6d28d9}
+  body.light-mode .graph-area{background:#ffffff;border-color:var(--border)}
+  body.light-mode .log-box{background:#ffffff;border-color:var(--border);color:var(--text)}
+  body.light-mode .info-card{background:var(--elevated);border-color:var(--border)}
+  body.light-mode .vis-area{background:var(--elevated);border-color:var(--border)}
+  body.light-mode .tracker{background:var(--elevated);border-color:var(--border)}
+  body.light-mode .concept-card{background:#ffffff;border-color:var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+  body.light-mode .concept-card h3{color:var(--accent)}
+  body.light-mode .concept-card p{color:var(--text)}
+  body.light-mode .inline-solution{background:rgba(79,70,229,0.05);border-color:rgba(79,70,229,0.18)}
+  body.light-mode .inline-solution h3{color:var(--accent)}
+
+  /* Buttons */
+  body.light-mode button{background:var(--elevated);border-color:var(--border);color:var(--text)}
+  body.light-mode button:hover{background:#e4e6f0;border-color:rgba(0,0,0,0.15)}
+  body.light-mode button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  body.light-mode button.primary:hover{background:var(--accent-light);border-color:var(--accent-light)}
+  body.light-mode button.danger{border-color:#dc2626;color:#dc2626;background:rgba(220,38,38,0.06)}
+
+  /* Form controls */
+  body.light-mode input[type="text"],body.light-mode input[type="number"],body.light-mode select{
+    background:#ffffff;border-color:var(--border);color:var(--text)
+  }
+  body.light-mode input[type="range"]{accent-color:var(--accent)}
+  body.light-mode .ctrl-group label{color:var(--text-dim)}
+  body.light-mode .ctrl-group select,body.light-mode .ctrl-group input[type="number"]{background:#fff;border-color:var(--border);color:var(--text)}
+
+  /* Paradox tab strip */
+  body.light-mode .tab-nav{border-bottom-color:var(--border);background:#ffffff}
+  body.light-mode .tab-btn{color:var(--text-dim);border-bottom-color:transparent;background:none}
+  body.light-mode .tab-btn:hover{background:var(--elevated);color:var(--text)}
+  body.light-mode .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(79,70,229,0.05)}
+
+  /* Method buttons (Riemann etc.) */
+  body.light-mode .method-btn{background:var(--elevated);color:var(--text-dim);border-color:var(--border)}
+  body.light-mode .method-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* Calculator */
+  body.light-mode .calc-panel{background:linear-gradient(180deg,#f0f1f7,#e6e8f0);border-color:var(--border);box-shadow:0 4px 24px rgba(0,0,0,.1)}
+  body.light-mode .calc-display{background:rgba(255,255,255,0.9);border-color:var(--border)}
+  body.light-mode .calc-result{color:var(--text)}
+  body.light-mode .calc-btn{background:rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.08);color:var(--text)}
+  body.light-mode .calc-btn:hover{background:rgba(255,255,255,0.95)}
+  body.light-mode .calc-btn.num{background:rgba(255,255,255,0.9)}
+  body.light-mode .graph-sidebar{border-color:var(--border);background:var(--elevated)}
+  body.light-mode .calc-fn-row input{background:#fff;border-color:var(--border);color:var(--text)}
+
+  /* Misc */
+  body.light-mode .glassmorphic{background:rgba(0,0,0,0.02);border-color:var(--border)}
+  body.light-mode .topic-header h2{background:linear-gradient(135deg,#4f46e5,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  body.light-mode .topic-header p{color:var(--text-dim)}
+  body.light-mode .site-footer{background:rgba(245,246,250,0.8);border-color:var(--border)}
+  body.light-mode .site-footer p{color:var(--text-dim)}
+  body.light-mode .stat-label{color:var(--text-dim)}
+  body.light-mode .stat-value{color:var(--text)}
+  body.light-mode canvas{filter:none}
+
+  /* Welcome overlay in light mode */
+  body.light-mode .welcome-overlay{background:#f5f6fa}
+  body.light-mode .welcome-title{background:linear-gradient(135deg,#4f46e5,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  body.light-mode .welcome-subtitle{color:var(--text-dim)}
+  body.light-mode .welcome-badge{color:var(--accent);background:rgba(79,70,229,0.08);border-color:rgba(79,70,229,0.2)}
+  body.light-mode .welcome-card{background:#ffffff;border-color:var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+  body.light-mode .welcome-card:hover{border-color:var(--accent);background:#f5f6ff;box-shadow:0 6px 20px rgba(79,70,229,0.12)}
+  body.light-mode .welcome-card .wc-label{color:var(--text-dim)}
+  body.light-mode .welcome-count strong{color:var(--accent)}
+  body.light-mode .welcome-hint{color:rgba(0,0,0,0.3)}
+  body.light-mode .welcome-enter{background:var(--accent);box-shadow:0 4px 16px rgba(79,70,229,0.3)}
 
   /* ═══════════════════════════════════════════════
      PARADOX SECTION — magical theme scoped here only
@@ -608,29 +649,25 @@
     <div class="welcome-badge">Interactive Mathematics</div>
     <div class="welcome-title">Math</div>
     <p class="welcome-subtitle">
-      Master pre-calc and beyond through hands-on interactive simulations.
-      From paradoxes to integrals, explore math visually.
+      Pick a topic to start exploring — 12 interactive modules, 35+ simulations.
     </p>
 
     <div class="welcome-cards">
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease .5s both"><span class="wc-icon">&infin;</span><span class="wc-label">20 Paradoxes</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease .6s both"><span class="wc-icon">&int;</span><span class="wc-label">Riemann Sums</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease .7s both"><span class="wc-icon">&bigcirc;</span><span class="wc-label">Conic Sections</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease .8s both"><span class="wc-icon">&theta;</span><span class="wc-label">Unit Circle</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease .9s both"><span class="wc-icon">&rarr;</span><span class="wc-label">Limits</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.0s both"><span class="wc-icon">&Sigma;</span><span class="wc-label">Sequences</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.1s both"><span class="wc-icon">&#119909;</span><span class="wc-label">Polynomials</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.2s both"><span class="wc-icon">&harr;</span><span class="wc-label">Transforms</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.3s both"><span class="wc-icon">&#8495;</span><span class="wc-label">Exp &amp; Log</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.4s both"><span class="wc-icon">&rarr;</span><span class="wc-label">Vectors</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.5s both"><span class="wc-icon">&hearts;</span><span class="wc-label">Polar &amp; Parametric</span></div>
-      <div class="welcome-card" style="animation:fadeSlideUp .5s ease 1.6s both"><span class="wc-icon">&#127922;</span><span class="wc-label">Probability</span></div>
+      <div class="welcome-card" onclick="enterSection('riemann')" style="animation:fadeSlideUp .5s ease .5s both"><span class="wc-icon">&int;</span><span class="wc-label">Riemann Sums</span></div>
+      <div class="welcome-card" onclick="enterSection('conics')" style="animation:fadeSlideUp .5s ease .6s both"><span class="wc-icon">&bigcirc;</span><span class="wc-label">Conic Sections</span></div>
+      <div class="welcome-card" onclick="enterSection('unitcircle')" style="animation:fadeSlideUp .5s ease .7s both"><span class="wc-icon">&theta;</span><span class="wc-label">Unit Circle</span></div>
+      <div class="welcome-card" onclick="enterSection('limits')" style="animation:fadeSlideUp .5s ease .8s both"><span class="wc-icon">&rarr;</span><span class="wc-label">Limits</span></div>
+      <div class="welcome-card" onclick="enterSection('sequences')" style="animation:fadeSlideUp .5s ease .9s both"><span class="wc-icon">&Sigma;</span><span class="wc-label">Sequences</span></div>
+      <div class="welcome-card" onclick="enterSection('polynomials')" style="animation:fadeSlideUp .5s ease 1.0s both"><span class="wc-icon">&#119909;</span><span class="wc-label">Polynomials</span></div>
+      <div class="welcome-card" onclick="enterSection('transforms')" style="animation:fadeSlideUp .5s ease 1.1s both"><span class="wc-icon">&harr;</span><span class="wc-label">Transforms</span></div>
+      <div class="welcome-card" onclick="enterSection('explog')" style="animation:fadeSlideUp .5s ease 1.2s both"><span class="wc-icon">&#8495;</span><span class="wc-label">Exp &amp; Log</span></div>
+      <div class="welcome-card" onclick="enterSection('vectors')" style="animation:fadeSlideUp .5s ease 1.3s both"><span class="wc-icon">&uarr;</span><span class="wc-label">Vectors</span></div>
+      <div class="welcome-card" onclick="enterSection('polar')" style="animation:fadeSlideUp .5s ease 1.4s both"><span class="wc-icon">&hearts;</span><span class="wc-label">Polar</span></div>
+      <div class="welcome-card" onclick="enterSection('probability')" style="animation:fadeSlideUp .5s ease 1.5s both"><span class="wc-icon">&#127922;</span><span class="wc-label">Probability</span></div>
+      <div class="welcome-card" onclick="enterSection('paradoxes')" style="animation:fadeSlideUp .5s ease 1.6s both"><span class="wc-icon">&infin;</span><span class="wc-label">Paradoxes</span></div>
     </div>
 
-    <div class="welcome-count"><strong>12</strong> interactive math topics &middot; <strong>35+</strong> simulations</div>
-
-    <button class="welcome-enter" onclick="enterSite()">Begin Exploring</button>
-    <div class="welcome-hint">press Enter or click to begin</div>
+    <div class="welcome-hint">press Enter to continue</div>
   </div>
 </div>
 
@@ -641,10 +678,7 @@
   </header>
 
   <nav class="section-nav">
-    <button class="section-btn active" onclick="switchSection('paradoxes')" data-section="paradoxes">
-      <span class="sec-icon">&infin;</span> Paradoxes
-    </button>
-    <button class="section-btn" onclick="switchSection('riemann')" data-section="riemann">
+    <button class="section-btn active" onclick="switchSection('riemann')" data-section="riemann">
       <span class="sec-icon">&int;</span> Riemann Sums
     </button>
     <button class="section-btn" onclick="switchSection('conics')" data-section="conics">
@@ -677,9 +711,12 @@
     <button class="section-btn" onclick="switchSection('probability')" data-section="probability">
       <span class="sec-icon">&#127922;</span> Probability
     </button>
+    <button class="section-btn" onclick="switchSection('paradoxes')" data-section="paradoxes">
+      <span class="sec-icon">&infin;</span> Paradoxes
+    </button>
   </nav>
 
-  <div class="section-content active" id="section-paradoxes">
+  <div class="section-content" id="section-paradoxes">
   <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('wizard')" data-tab="wizard">
       <span class="tab-icon">🧙‍♂️</span> Wizard & Mermaid
@@ -2310,7 +2347,7 @@
   <!-- ════════════════════════════════════════════════════
        SECTION — RIEMANN SUMS
        ════════════════════════════════════════════════════ -->
-  <div class="section-content" id="section-riemann">
+  <div class="section-content active" id="section-riemann">
     <div class="topic-header">
       <h2>Riemann Sums</h2>
       <p>Approximate the area under a curve by summing rectangles &mdash; watch it converge to the true integral</p>
@@ -2959,16 +2996,20 @@
 
 /* ── Welcome Page ── */
 let entered=false;
-function enterSite(){
+function enterSite(defaultSection){
   if(entered)return;entered=true;
   const w=document.getElementById('welcome');
   const m=document.getElementById('main-container');
   w.classList.add('dismissed');
   m.style.display='';
+  if(defaultSection)switchSection(defaultSection);
   setTimeout(()=>w.remove(),900);
 }
+function enterSection(id){
+  enterSite(id);
+}
 document.addEventListener('keydown',function(e){
-  if(!entered&&(e.key==='Enter'||e.key===' ')){e.preventDefault();enterSite()}
+  if(!entered&&(e.key==='Enter'||e.key===' ')){e.preventDefault();enterSite('riemann')}
 });
 
 /* ── Section Switching ── */
