@@ -951,6 +951,9 @@ body {
 .gb-ticks span:nth-child(3) {
   color: var(--accent-light);
 }
+/* Keep first/last labels from bleeding off the edges */
+.gb-ticks span:first-child { transform: translateX(4px); }
+.gb-ticks span:last-child  { transform: translateX(calc(-100% - 4px)); }
 
 .gb-event {
   font-size: .75rem;

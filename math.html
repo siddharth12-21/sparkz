@@ -67,6 +67,8 @@
     --cv-stroke:rgba(139,133,255,0.78);
     --cv-curve:#67e8f9;
     --cv-curve2:#a78bfa;
+    /* Trig function colors */
+    --trig-amber:#f59e0b;
     /* Paradox-specific (still used globally for paradox section) */
     --wizard:#7c3aed;--wizard-glow:#a78bfa;
     --mermaid:#06b6d4;--mermaid-glow:#67e8f9;
@@ -540,13 +542,14 @@
     --cv-stroke:rgba(79,70,229,0.72);
     --cv-curve:#4f46e5;
     --cv-curve2:#7c3aed;
+    --trig-amber:#d97706;
   }
   body.light-mode{background:var(--bg);color:var(--text)}
   body.light-mode #stars{opacity:0}
 
   /* Layout chrome */
   body.light-mode .container{background:transparent}
-  body.light-mode header h1{background:linear-gradient(135deg,#4f46e5,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  body.light-mode header h1{background:linear-gradient(135deg,var(--accent),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   body.light-mode header .subtitle{color:var(--text-dim)}
 
   /* Section nav */
@@ -562,9 +565,11 @@
   body.light-mode .panel h3{color:var(--text)}
   body.light-mode .panel p{color:var(--text)}
   body.light-mode .char-card{background:#ffffff;border-color:var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
-  body.light-mode .stat-card{background:var(--elevated);border-color:var(--border)}
+  body.light-mode .stat-card{background:#ffffff;border-color:var(--border);box-shadow:0 1px 6px rgba(0,0,0,0.06)}
   body.light-mode .stat-card .label{color:var(--text-dim)}
   body.light-mode .stat-card .value{color:var(--text)}
+  body.light-mode .trig-cell{background:#ffffff;border-color:var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+  body.light-mode .angle-display .deg{color:var(--accent)}
   /* Canvas containers stay dark in light mode — visualizations need contrast */
   body.light-mode .vis-area{background:#ffffff;border-color:rgba(0,0,0,0.1);box-shadow:0 2px 12px rgba(79,70,229,0.08)}
   body.light-mode .vis-area .vis-label{color:var(--text-dim)}
@@ -2502,12 +2507,12 @@
         <div class="rad" id="uc-rad">&pi;/4 &asymp; 0.7854</div>
       </div>
       <div class="trig-grid">
-        <div class="trig-cell"><div class="trig-name">sin &theta;</div><div class="trig-val" id="uc-sin" style="color:var(--wizard-glow)">0.7071</div></div>
-        <div class="trig-cell"><div class="trig-name">cos &theta;</div><div class="trig-val" id="uc-cos" style="color:var(--mermaid-glow)">0.7071</div></div>
-        <div class="trig-cell"><div class="trig-name">tan &theta;</div><div class="trig-val" id="uc-tan" style="color:var(--gold-glow)">1.0000</div></div>
-        <div class="trig-cell"><div class="trig-name">csc &theta;</div><div class="trig-val" id="uc-csc" style="color:var(--wizard-glow)">1.4142</div></div>
-        <div class="trig-cell"><div class="trig-name">sec &theta;</div><div class="trig-val" id="uc-sec" style="color:var(--mermaid-glow)">1.4142</div></div>
-        <div class="trig-cell"><div class="trig-name">cot &theta;</div><div class="trig-val" id="uc-cot" style="color:var(--gold-glow)">1.0000</div></div>
+        <div class="trig-cell"><div class="trig-name">sin &theta;</div><div class="trig-val" id="uc-sin" style="color:var(--cv-curve2)">0.7071</div></div>
+        <div class="trig-cell"><div class="trig-name">cos &theta;</div><div class="trig-val" id="uc-cos" style="color:var(--cv-curve)">0.7071</div></div>
+        <div class="trig-cell"><div class="trig-name">tan &theta;</div><div class="trig-val" id="uc-tan" style="color:var(--trig-amber)">1.0000</div></div>
+        <div class="trig-cell"><div class="trig-name">csc &theta;</div><div class="trig-val" id="uc-csc" style="color:var(--cv-curve2)">1.4142</div></div>
+        <div class="trig-cell"><div class="trig-name">sec &theta;</div><div class="trig-val" id="uc-sec" style="color:var(--cv-curve)">1.4142</div></div>
+        <div class="trig-cell"><div class="trig-name">cot &theta;</div><div class="trig-val" id="uc-cot" style="color:var(--trig-amber)">1.0000</div></div>
       </div>
       <div class="vis-area" style="padding:.75rem">
         <canvas id="uc-canvas" class="big-canvas" style="height:480px"></canvas>
