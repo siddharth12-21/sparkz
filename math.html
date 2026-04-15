@@ -527,7 +527,8 @@
   body.light-mode{
     --bg:#f5f6fa;--surface:#ffffff;--elevated:#eef0f6;
     --text:#111827;--text-dim:#6b7280;--border:rgba(0,0,0,0.09);
-    --accent:#4f46e5;--accent-light:#6366f1;--accent-glow:rgba(79,70,229,0.14);
+    /* --accent/--accent-light/--accent-glow intentionally omitted here —
+       they are set by the parent via postMessage so the palette picker works */
     --dark:#eef0f6;--darker:#f5f6fa;
     /* Paradox palette remapped for readable light-mode contrast */
     --wizard-glow:#5b21b6;--wizard:#5b21b6;
@@ -6126,19 +6127,14 @@ window.addEventListener('message',function(e){
     [RI,CO,UC,LI,SE,PLY,TF,EL,VC,PP,PR].forEach(function(m){try{m.draw()}catch(x){}});
   }else if(e.data&&e.data.type==='set-palette'){
     var r=document.documentElement;
-    r.style.setProperty('--accent',       e.data.accent);
-    r.style.setProperty('--accent2',      e.data.accent2);
-    r.style.setProperty('--accent-light', e.data.accent2);
-    r.style.setProperty('--accent-glow',  e.data.accentGlow);
-    /* body.light-mode re-declares --accent/--accent-light on body, so
-       we must also override them at body level to beat that specificity */
-    document.body.style.setProperty('--accent',       e.data.accent);
-    document.body.style.setProperty('--accent-light', e.data.accent2);
-    /* derive canvas-specific colors from new accent */
-    var a=e.data.accent,a2=e.data.accent2;
-    document.body.style.setProperty('--cv-stroke', a2);
+    var a=e.data.accent,a2=e.data.accent2,ag=e.data.accentGlow;
+    r.style.setProperty('--accent',       a);
+    r.style.setProperty('--accent2',      a2);
+    r.style.setProperty('--accent-light', a2);
+    r.style.setProperty('--accent-glow',  ag);
     document.body.style.setProperty('--cv-curve',  a);
     document.body.style.setProperty('--cv-curve2', a2);
+    document.body.style.setProperty('--cv-stroke', a2);
     [RI,CO,UC,LI,SE,PLY,TF,EL,VC,PP,PR].forEach(function(m){try{m.draw()}catch(x){}});
   }else if(e.data&&e.data.type==='studyhub-resize'){
     window.dispatchEvent(new Event('resize'));
