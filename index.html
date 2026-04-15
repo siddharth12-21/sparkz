@@ -273,6 +273,28 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
 .tab-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none}
 .tab-frame.active{display:block}
 
+/* ── Accent palette picker ── */
+.palette-row{
+  display:flex;align-items:center;gap:.5rem;
+  justify-content:center;margin-bottom:.75rem;
+}
+.palette-label{
+  font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-dim);margin-right:.15rem;
+}
+.swatch{
+  width:20px;height:20px;border-radius:50%;border:2px solid transparent;
+  cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s;
+  padding:0;outline:none;
+}
+.swatch:hover{transform:scale(1.25)}
+.swatch.active{
+  border-color:var(--text)!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,0.15);
+  transform:scale(1.15);
+}
+html.light .swatch.active{box-shadow:0 0 0 3px rgba(0,0,0,0.1)}
+
 /* ── Responsive ── */
 @media(max-width:600px){
   .logo span{display:none}
@@ -314,6 +336,17 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
 
     <button class="splash-enter" id="splashEnter">Enter Sparkz &rarr;</button>
     <div class="splash-hint">Press <kbd style="background:var(--border);padding:1px 5px;border-radius:4px">Enter</kbd> to continue</div>
+
+    <!-- Accent color picker -->
+    <div class="palette-row" id="paletteRow">
+      <span class="palette-label">Accent</span>
+      <button class="swatch active" data-palette="indigo" title="Indigo" style="background:#6c63ff" onclick="setPalette('indigo')"></button>
+      <button class="swatch" data-palette="violet" title="Violet" style="background:#7c3aed" onclick="setPalette('violet')"></button>
+      <button class="swatch" data-palette="blue" title="Blue" style="background:#2563eb" onclick="setPalette('blue')"></button>
+      <button class="swatch" data-palette="teal" title="Teal" style="background:#0d9488" onclick="setPalette('teal')"></button>
+      <button class="swatch" data-palette="rose" title="Rose" style="background:#e11d48" onclick="setPalette('rose')"></button>
+      <button class="swatch" data-palette="amber" title="Amber" style="background:#d97706" onclick="setPalette('amber')"></button>
+    </div>
 
     <div class="splash-visitors" id="visitorBadge">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -470,8 +503,8 @@ function applyTheme(){
   var sm = document.getElementById('splashMoon');
   if(ss) ss.style.display = isLight ? 'block' : 'none';
   if(sm) sm.style.display = isLight ? 'none'  : 'block';
-  // Starfield color: purple-tinted in dark, blue-tinted in light
-  window._starColor = isLight ? '80,90,160' : '200,190,255';
+  // Re-apply palette with updated dark/light variant
+  applyPalette(currentPalette);
   var msg = {type:'set-theme', theme:theme};
   try{ document.getElementById('frame-math').contentWindow.postMessage(msg,'*'); }catch(e){}
   try{ document.getElementById('frame-apwh').contentWindow.postMessage(msg,'*'); }catch(e){}
@@ -481,6 +514,39 @@ function toggleTheme(){
   theme = theme==='dark' ? 'light' : 'dark';
   localStorage.setItem('sparkz-theme', theme);
   applyTheme();
+}
+
+/* ── Accent palette ── */
+var PALETTES = {
+  indigo: { dark:['#6c63ff','#818cf8','rgba(108,99,255,0.28)'], light:['#4f46e5','#6366f1','rgba(79,70,229,0.14)'], star:'200,190,255' },
+  violet: { dark:['#7c3aed','#a78bfa','rgba(124,58,237,0.28)'], light:['#5b21b6','#7c3aed','rgba(91,33,182,0.14)'], star:'180,160,255' },
+  blue:   { dark:['#2563eb','#60a5fa','rgba(37,99,235,0.28)'],  light:['#1d4ed8','#3b82f6','rgba(29,78,216,0.14)'],  star:'140,185,255' },
+  teal:   { dark:['#0d9488','#2dd4bf','rgba(13,148,136,0.28)'], light:['#0f766e','#0d9488','rgba(15,118,110,0.14)'], star:'130,230,220' },
+  rose:   { dark:['#e11d48','#fb7185','rgba(225,29,72,0.28)'],  light:['#be123c','#e11d48','rgba(190,18,60,0.14)'],  star:'255,160,185' },
+  amber:  { dark:['#d97706','#f59e0b','rgba(217,119,6,0.28)'],  light:['#b45309','#d97706','rgba(180,83,9,0.14)'],   star:'255,210,120' },
+};
+var currentPalette = localStorage.getItem('sparkz-palette') || 'indigo';
+
+function applyPalette(name){
+  var p = PALETTES[name] || PALETTES.indigo;
+  var isLight = theme === 'light';
+  var cols = isLight ? p.light : p.dark;
+  var root = document.documentElement;
+  root.style.setProperty('--accent', cols[0]);
+  root.style.setProperty('--accent2', cols[1]);
+  root.style.setProperty('--accent-glow', cols[2]);
+  // Update starfield color
+  window._starColor = p.star;
+  // Update swatch active state
+  document.querySelectorAll('.swatch').forEach(function(s){
+    s.classList.toggle('active', s.dataset.palette === name);
+  });
+}
+
+function setPalette(name){
+  currentPalette = name;
+  localStorage.setItem('sparkz-palette', name);
+  applyPalette(name);
 }
 
 /* ── Real-time online counter (Socket.io) ── */
@@ -527,7 +593,11 @@ if(window.location.protocol === 'file:'){
   loadIframes();
 }
 
-applyTheme();
+applyTheme(); // also calls applyPalette via applyTheme
+// Restore saved palette (applyTheme already called applyPalette, but set active swatch)
+document.querySelectorAll('.swatch').forEach(function(s){
+  s.classList.toggle('active', s.dataset.palette === currentPalette);
+});
 document.getElementById('frame-math').addEventListener('load', function(){ applyTheme(); });
 document.getElementById('frame-apwh').addEventListener('load', function(){ applyTheme(); });
 </script>

@@ -518,6 +518,10 @@
     --text:#111827;--text-dim:#6b7280;--border:rgba(0,0,0,0.09);
     --accent:#4f46e5;--accent-light:#6366f1;--accent-glow:rgba(79,70,229,0.14);
     --dark:#eef0f6;--darker:#f5f6fa;
+    /* Paradox palette remapped for readable light-mode contrast */
+    --wizard-glow:#5b21b6;--wizard:#5b21b6;
+    --mermaid-glow:#0369a1;--mermaid:#0369a1;
+    --gold-glow:#92400e;--gold:#92400e;
   }
   body.light-mode{background:var(--bg);color:var(--text)}
   body.light-mode #stars{opacity:0}
@@ -543,10 +547,13 @@
   body.light-mode .stat-card{background:var(--elevated);border-color:var(--border)}
   body.light-mode .stat-card .label{color:var(--text-dim)}
   body.light-mode .stat-card .value{color:var(--text)}
-  body.light-mode .graph-area{background:#ffffff;border-color:var(--border)}
+  /* Canvas containers stay dark in light mode — visualizations need contrast */
+  body.light-mode .vis-area{background:#161820;border-color:rgba(255,255,255,0.08)}
+  body.light-mode .vis-area .vis-label{color:rgba(255,255,255,0.45)}
+  body.light-mode .graph-area{background:#161820;border-color:rgba(255,255,255,0.08)}
+  body.light-mode .graph-area h3{color:rgba(255,255,255,0.4)}
   body.light-mode .log-box{background:#ffffff;border-color:var(--border);color:var(--text)}
   body.light-mode .info-card{background:var(--elevated);border-color:var(--border)}
-  body.light-mode .vis-area{background:var(--elevated);border-color:var(--border)}
   body.light-mode .tracker{background:var(--elevated);border-color:var(--border)}
   body.light-mode .concept-card{background:#ffffff;border-color:var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.05)}
   body.light-mode .concept-card h3{color:var(--accent)}
@@ -578,6 +585,10 @@
   /* Method buttons (Riemann etc.) */
   body.light-mode .method-btn{background:var(--elevated);color:var(--text-dim);border-color:var(--border)}
   body.light-mode .method-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  /* Dark-background text elements */
+  body.light-mode .live-eq{background:var(--elevated);border-color:var(--border);color:var(--accent)}
+  body.light-mode .math-block{background:var(--elevated);border-color:var(--border);color:var(--accent)}
+  body.light-mode .range-val{color:var(--accent)}
 
   /* Calculator */
   body.light-mode .calc-panel{background:linear-gradient(180deg,#f0f1f7,#e6e8f0);border-color:var(--border);box-shadow:0 4px 24px rgba(0,0,0,.1)}
