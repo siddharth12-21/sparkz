@@ -2647,7 +2647,7 @@
         <span style="font-size:.8rem;color:var(--text-dim)">Click on the graph to place or move roots</span>
       </div>
       <div class="vis-area" style="padding:.75rem">
-        <canvas id="po-canvas" class="big-canvas"></canvas>
+        <canvas id="ply-canvas" class="big-canvas"></canvas>
       </div>
       <div class="live-eq" id="po-eq">y = (x+2)(x)(x&minus;2)</div>
       <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
@@ -5144,7 +5144,7 @@ const SE=(function(){
    POLYNOMIAL EXPLORER
    ════════════════════════════════════════════ */
 const PLY=(function(){
-  const cv=document.getElementById('po-canvas'),cx=cv.getContext('2d');
+  const cv=document.getElementById('ply-canvas'),cx=cv.getContext('2d');
   let deg=3,lead=1,roots=[-2,0,2];
   let dragging=-1;
   function poly(x){let y=lead;for(let i=0;i<roots.length;i++)y*=(x-roots[i]);return y}

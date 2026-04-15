@@ -184,9 +184,7 @@ body {
 }
 
 .sidebar-footer {
-  padding: 12px 20px;
-  border-top: 1px solid var(--bg-elevated);
-  display: flex; justify-content: center;
+  display: none;
 }
 
 /* ===== BUTTONS ===== */
@@ -317,15 +315,16 @@ body {
 
 .map-legend {
   position: absolute;
-  bottom: 24px; left: 24px;
+  /* sit above the global-bar (~130 px) so they never overlap */
+  bottom: 140px; left: 18px;
   background: var(--bg-surface);
   border: 1px solid var(--bg-elevated);
   border-radius: var(--radius);
-  padding: 14px 18px;
+  padding: 10px 14px;
   z-index: 1000;
   box-shadow: var(--shadow);
-  max-width: 260px;
-  max-height: 320px;
+  max-width: 220px;
+  max-height: 260px;
   overflow-y: auto;
 }
 .map-legend h4 {
@@ -891,7 +890,7 @@ body {
 .gb-slider-wrap {
   flex: 1;
   position: relative;
-  padding-bottom: 20px;
+  padding-bottom: 22px;
 }
 
 .gb-slider {
@@ -933,17 +932,19 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 18px;
+  height: 20px;
   pointer-events: none;
 }
 .gb-ticks span {
   position: absolute;
+  top: 3px;
   transform: translateX(-50%);
   font-size: .62rem;
   color: var(--text-dim);
   white-space: nowrap;
   font-weight: 600;
   letter-spacing: .02em;
+  line-height: 1;
 }
 /* Accent the major periodization ticks */
 .gb-ticks span:nth-child(2),

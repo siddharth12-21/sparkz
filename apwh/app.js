@@ -1027,9 +1027,10 @@
       updateTileLayer(t);
     } else if (e.data && e.data.type === "set-palette") {
       const r = document.documentElement;
-      r.style.setProperty("--accent",      e.data.accent);
-      r.style.setProperty("--accent2",     e.data.accent2);
-      r.style.setProperty("--accent-glow", e.data.accentGlow);
+      r.style.setProperty("--accent",       e.data.accent);
+      r.style.setProperty("--accent2",      e.data.accent2);
+      r.style.setProperty("--accent-light", e.data.accent2);
+      r.style.setProperty("--accent-glow",  e.data.accentGlow);
     } else if (e.data && e.data.type === "invalidate-map" && map) {
       setTimeout(() => map.invalidateSize(), 50);
     }
