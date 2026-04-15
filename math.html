@@ -6130,6 +6130,10 @@ window.addEventListener('message',function(e){
     r.style.setProperty('--accent2',      e.data.accent2);
     r.style.setProperty('--accent-light', e.data.accent2);
     r.style.setProperty('--accent-glow',  e.data.accentGlow);
+    /* body.light-mode re-declares --accent/--accent-light on body, so
+       we must also override them at body level to beat that specificity */
+    document.body.style.setProperty('--accent',       e.data.accent);
+    document.body.style.setProperty('--accent-light', e.data.accent2);
     /* derive canvas-specific colors from new accent */
     var a=e.data.accent,a2=e.data.accent2;
     document.body.style.setProperty('--cv-stroke', a2);
