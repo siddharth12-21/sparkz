@@ -46,7 +46,6 @@
 [data-theme="light"] #topBar               { background: var(--bg-surface); border-bottom-color: rgba(0,0,0,0.08); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
 [data-theme="light"] .logo                 { background: linear-gradient(135deg,var(--accent),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 [data-theme="light"] .logo span            { background: linear-gradient(135deg,#374151,#6b7280);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
-[data-theme="light"] #topBar              { border-top-color: var(--accent); }
 [data-theme="light"] .tagline              { color: var(--text-muted); }
 [data-theme="light"] .unit-item            { color: var(--text-muted); }
 [data-theme="light"] .unit-item:hover      { background: var(--bg-elevated); color: var(--text); }
@@ -247,7 +246,6 @@ body {
   min-height: var(--topbar-h);
   background: var(--bg-surface);
   border-bottom: 1px solid var(--bg-elevated);
-  border-top: 2px solid var(--accent);
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -311,9 +309,9 @@ body {
   background: #4d5f68 !important;
 }
 
-/* Dim only the raster tile layer in dark mode so vectors stay vivid */
+/* Dim raster tiles in dark mode — keep ocean blue vivid */
 #map[data-map-theme="dark"] .leaflet-tile-pane {
-  filter: brightness(0.46) contrast(1.12) saturate(0.9);
+  filter: brightness(0.68) contrast(1.1) saturate(1.6) hue-rotate(-8deg);
 }
 
 

@@ -115,6 +115,35 @@ html,body{height:100%;font-family:'Outfit','Inter',system-ui,sans-serif;
   position:absolute;inset:0;pointer-events:none;
 }
 
+/* floating symbol layer */
+.splash-symbols{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+}
+.splash-sym{
+  position:absolute;
+  font-size:1.4rem;line-height:1;
+  color:var(--accent);opacity:0;
+  animation:sym-float 14s ease-in-out infinite;
+  will-change:transform,opacity;
+  user-select:none;
+}
+@keyframes sym-float{
+  0%  {opacity:0; transform:translateY(0) rotate(0deg);}
+  12% {opacity:0.18;}
+  50% {opacity:0.12; transform:translateY(-40px) rotate(15deg);}
+  88% {opacity:0.18;}
+  100%{opacity:0;   transform:translateY(-80px) rotate(30deg);}
+}
+html.light .splash-sym{opacity:0}
+html.light .splash-sym{animation-name:sym-float-light}
+@keyframes sym-float-light{
+  0%  {opacity:0; transform:translateY(0) rotate(0deg);}
+  12% {opacity:0.10;}
+  50% {opacity:0.07; transform:translateY(-40px) rotate(15deg);}
+  88% {opacity:0.10;}
+  100%{opacity:0;   transform:translateY(-80px) rotate(30deg);}
+}
+
 .splash-inner{
   position:relative;z-index:1;
   display:flex;flex-direction:column;align-items:center;
@@ -314,6 +343,27 @@ html.light .swatch.active{box-shadow:0 0 0 3px rgba(0,0,0,0.1)}
 <!-- ═══════════ SPLASH ═══════════ -->
 <div id="splash">
   <canvas id="splash-canvas"></canvas>
+  <!-- floating decorative symbols -->
+  <div class="splash-symbols" aria-hidden="true">
+    <span class="splash-sym" style="left:5%;top:72%;font-size:1.8rem;animation-delay:0s;animation-duration:13s">∫</span>
+    <span class="splash-sym" style="left:12%;top:18%;font-size:1.2rem;animation-delay:2.5s;animation-duration:17s">π</span>
+    <span class="splash-sym" style="left:22%;top:55%;font-size:1.5rem;animation-delay:5s;animation-duration:15s">∑</span>
+    <span class="splash-sym" style="left:33%;top:82%;font-size:1rem;animation-delay:1s;animation-duration:19s">θ</span>
+    <span class="splash-sym" style="left:7%;top:38%;font-size:1.1rem;animation-delay:8s;animation-duration:16s">∂</span>
+    <span class="splash-sym" style="left:46%;top:10%;font-size:1.6rem;animation-delay:3s;animation-duration:20s">√</span>
+    <span class="splash-sym" style="left:58%;top:75%;font-size:1.3rem;animation-delay:6.5s;animation-duration:14s">∞</span>
+    <span class="splash-sym" style="left:68%;top:22%;font-size:1.2rem;animation-delay:0.8s;animation-duration:18s">Δ</span>
+    <span class="splash-sym" style="left:78%;top:60%;font-size:1.5rem;animation-delay:4s;animation-duration:13s">≈</span>
+    <span class="splash-sym" style="left:88%;top:14%;font-size:1.1rem;animation-delay:9s;animation-duration:16s">φ</span>
+    <span class="splash-sym" style="left:93%;top:48%;font-size:1.8rem;animation-delay:2s;animation-duration:21s">∮</span>
+    <span class="splash-sym" style="left:40%;top:88%;font-size:1rem;animation-delay:7s;animation-duration:15s">λ</span>
+    <span class="splash-sym" style="left:54%;top:42%;font-size:1.3rem;animation-delay:11s;animation-duration:17s">Σ</span>
+    <span class="splash-sym" style="left:17%;top:90%;font-size:1.6rem;animation-delay:3.5s;animation-duration:19s">⊕</span>
+    <span class="splash-sym" style="left:83%;top:82%;font-size:1rem;animation-delay:10s;animation-duration:14s">∇</span>
+    <span class="splash-sym" style="left:30%;top:8%;font-size:1.4rem;animation-delay:13s;animation-duration:22s">α</span>
+    <span class="splash-sym" style="left:72%;top:90%;font-size:1.1rem;animation-delay:4.5s;animation-duration:18s">β</span>
+    <span class="splash-sym" style="left:2%;top:55%;font-size:1.2rem;animation-delay:6s;animation-duration:20s">Ω</span>
+  </div>
   <div class="splash-inner">
     <div class="splash-logo">Sparkz<span>.quest</span></div>
     <p class="splash-tagline">
@@ -541,6 +591,10 @@ function applyPalette(name){
   document.querySelectorAll('.swatch').forEach(function(s){
     s.classList.toggle('active', s.dataset.palette === name);
   });
+  // Broadcast to iframes
+  var msg = {type:'set-palette', palette:name, accent:cols[0], accent2:cols[1], accentGlow:cols[2]};
+  try{ document.getElementById('frame-math').contentWindow.postMessage(msg,'*'); }catch(e){}
+  try{ document.getElementById('frame-apwh').contentWindow.postMessage(msg,'*'); }catch(e){}
 }
 
 function setPalette(name){
