@@ -84,7 +84,7 @@
   .container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
 
   header{text-align:center;padding:2rem 0 1rem}
-  header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;background:linear-gradient(135deg,var(--accent-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.01em;line-height:1.2}
+  header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:var(--accent);letter-spacing:-.01em;line-height:1.2}
   header .subtitle{font-size:1rem;color:var(--text-dim);margin-top:.5rem;font-style:normal}
 
   /* ── Tabs ── */
@@ -550,7 +550,7 @@
 
   /* Layout chrome */
   body.light-mode .container{background:transparent}
-  body.light-mode header h1{background:linear-gradient(135deg,var(--accent),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  body.light-mode header h1{color:var(--accent)}
   body.light-mode header .subtitle{color:var(--text-dim)}
 
   /* Section nav */
@@ -6119,28 +6119,10 @@ const CALC=(function(){
   return{toggle:toggle,switchTab:switchTab,toggleDeg:toggleDeg,input:input,graphDraw:graphDraw,graphAddFn:graphAddFn,graphDelFn:graphDelFn,graphFnChange:graphFnChange,graphZoom:graphZoom,graphReset:graphReset,graphPreset:graphPreset,graphToggleVis:graphToggleVis};
 })();
 
-/* Directly paint the h1 gradient so it always matches the active palette
-   regardless of CSS variable cascade / specificity issues */
-var _h1Accent = null, _h1Accent2 = null;
-function applyH1Gradient(a,a2){
-  if(a)  _h1Accent  = a;
-  if(a2) _h1Accent2 = a2;
-  var c1 = _h1Accent  || getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()  || '#6c63ff';
-  var c2 = _h1Accent2 || getComputedStyle(document.documentElement).getPropertyValue('--accent-light').trim() || '#818cf8';
-  var h1 = document.querySelector('header h1');
-  if(!h1) return;
-  var grad = 'linear-gradient(135deg,'+c1+','+c2+')';
-  h1.style.backgroundImage = grad;
-  h1.style.webkitBackgroundClip = 'text';
-  h1.style.webkitTextFillColor  = 'transparent';
-  h1.style.backgroundClip       = 'text';
-}
-
 /* Listen for theme messages from parent wrapper */
 window.addEventListener('message',function(e){
   if(e.data&&e.data.type==='set-theme'){
     document.body.classList.toggle('light-mode',e.data.theme==='light');
-    applyH1Gradient();
     [RI,CO,UC,LI,SE,PLY,TF,EL,VC,PP,PR].forEach(function(m){try{m.draw()}catch(x){}});
   }else if(e.data&&e.data.type==='set-palette'){
     var r=document.documentElement;
@@ -6152,7 +6134,6 @@ window.addEventListener('message',function(e){
     document.body.style.setProperty('--cv-curve',  a);
     document.body.style.setProperty('--cv-curve2', a2);
     document.body.style.setProperty('--cv-stroke', a2);
-    applyH1Gradient(a,a2);
     [RI,CO,UC,LI,SE,PLY,TF,EL,VC,PP,PR].forEach(function(m){try{m.draw()}catch(x){}});
   }else if(e.data&&e.data.type==='studyhub-resize'){
     window.dispatchEvent(new Event('resize'));
